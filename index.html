@@ -100,8 +100,19 @@ input:focus{border-color:var(--accent)}
 .custom-row.show{display:flex}
 .custom-row input{width:110px}
 .timer{text-align:center;font-variant-numeric:tabular-nums;font-size:70px;font-weight:650;letter-spacing:-.06em;margin:7px 0 21px}
-.controls{display:flex;justify-content:center;gap:9px}
+.controls{display:flex;justify-content:center;gap:9px;align-items:center}
 .controls button{min-width:95px}
+.controls .done-btn{background:var(--accent);color:#fff;border:1px solid var(--accent);font-weight:650}
+.controls .done-btn:hover{filter:brightness(.96)}
+.done-modal{position:fixed;inset:0;background:rgba(20,20,20,.34);display:none;align-items:center;justify-content:center;padding:20px;z-index:55}
+.done-modal.open{display:flex}
+.done-modal-card{width:min(390px,100%);background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.16)}
+.done-modal-card h2{margin:0 0 7px;font-size:19px}
+.done-modal-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+.done-modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.done-modal-actions .save-focus{min-width:112px}
+.done-modal-actions .cancel-focus{background:transparent;border-color:transparent;color:var(--muted);font-weight:500}
+.done-modal-actions .cancel-focus:hover{background:var(--bg);color:var(--text);border-color:var(--line)}
 .timer-meta{margin-top:auto;border-top:1px solid var(--line);padding-top:16px;display:flex;justify-content:space-between;color:var(--muted);font-size:12px}
 .bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
 .calendar{min-height:340px}
@@ -298,7 +309,7 @@ body{background:var(--bg)}
         <div class="preview-screen">
           <div class="preview-screen-head"><div class="preview-screen-title" data-i18n="currentFocus">CURRENT FOCUS</div><span class="small">25m</span></div>
           <div class="preview-task" data-i18n="previewTask">Read and annotate today's article</div>
-          <div class="preview-timer">18:42</div>
+          <div class="preview-timer">07:20</div>
           <div class="preview-progress"><span></span></div>
         </div>
       </div>
@@ -366,6 +377,7 @@ body{background:var(--bg)}
   <div class="controls">
     <button class="primary" id="startBtn" onclick="toggleTimer()"><span data-i18n="start">Start</span></button>
     <button class="ghost" onclick="resetTimer()"><span data-i18n="reset">Reset</span></button>
+    <button class="done-btn" id="doneBtn" onclick="doneTimer()"><span data-i18n="doneTimer">Done</span></button>
   </div>
   <div class="focus-options">
     <div class="option-title" data-i18n="afterFocus">After focus</div>
@@ -455,6 +467,17 @@ body{background:var(--bg)}
     <div class="history-modal-actions"><button class="ghost" onclick="closeHistoryEditor()"><span data-i18n="cancel">Cancel</span></button><button class="primary" onclick="saveHistoryEdit()"><span data-i18n="saveChanges">Save changes</span></button></div>
   </div>
 </div>
+
+<div class="done-modal" id="doneModal">
+  <div class="done-modal-card">
+    <h2 data-i18n="saveFocusPrompt">Save this focus session?</h2>
+    <p id="doneModalText" data-i18n="saveFocusSub">Keep this session in your focus history.</p>
+    <div class="done-modal-actions">
+      <button class="ghost cancel-focus" onclick="closeDoneModal()"><span data-i18n="cancel">Cancel</span></button>
+      <button class="primary save-focus" onclick="saveDoneSession()"><span data-i18n="save">Save</span></button>
+    </div>
+  </div>
+</div>
 <div class="settings" id="settings">
   <div class="settings-card">
     <div class="settings-head"><h2 data-i18n="personalize">Personalize</h2><button class="icon-btn" onclick="closeSettings()">×</button></div>
@@ -517,7 +540,7 @@ const I18N={
  en:{
   login:"Log in",createAccount:"Create account",username:"Username",password:"Password",confirmPassword:"Confirm password",enterUsername:"Enter your username",passwordHint:"At least 8 characters",typeAgain:"Type it again",
   insideSteno:"Inside steno",focusAndNotebook:"Focus.",previewIntro:"A quiet space to focus on what matters and keep your attention on one thing at a time.",currentFocus:"CURRENT FOCUS",previewTask:"Read and annotate today's article",researchIdeas:"Research ideas",quickThought:"Quick thought",focusReflection:"Focus reflection",note:"Note",twentyFiveMin:"25 min",focus:"Focus",task:"Task",edit:"Edit",delete:"Delete",acrossPeriod:"Across this period",previewCaption:"Plan → focus → come back tomorrow.",
-  personalize:"Personalize",language:"Language",todayQuestion:"What do I want to do today?",addToday:"Add something you want to do today…",add:"Add",todaysProgress:"Today's progress",focusTimeToday:"Focus time today",chooseTask:"Choose a task to begin.",pomodoro25:"Pomodoro · 25m",quick15:"Quick · 15m",deep50:"Deep · 50m",deep60:"Deep · 60m",openTimer:"Open timer",custom:"Custom",minutes:"minutes",setTimer:"Set timer",start:"Start",pause:"Pause",reset:"Reset",afterFocus:"After focus",noBreak:"No break",setBreak:"Set break",breakMinutes:"break minutes",calendarNote:"Click any date to add tasks for that day.",dayPlanner:"DAY PLANNER",focusCompleted:"Focus completed",dayTask:"What needs to happen that day?",focusHistory:"FOCUS HISTORY",focusArchive:"Your focus archive",historySub:"Open to see your focus stats and all completed sessions.",all:"All",today:"Today",thisWeek:"This week",thisMonth:"This month",totalFocus:"Total focus",dailyAverage:"Daily average",sessions:"Sessions",bestDay:"Best day",focusTrend:"Focus trend",editFocusSession:"Edit focus session",date:"Date",focusMinutes:"Focus time (minutes)",whatFocused:"What were you focusing on?",optionalNote:"Optional note",cancel:"Cancel",saveChanges:"Save changes",yourName:"Your name",namePlaceholder:"What should we call you?",makeStenoYours:"Make steno yours",colorIntro:"Pick three colors. They each have a job — so your theme feels intentional instead of becoming a rainbow accident.",background:"Background",wholePage:"The whole page",accent:"Accent",buttonsActions:"Buttons & actions",atmosphere:"Atmosphere",cardsSurfaces:"Cards & soft surfaces",pickWorld:"Pick a little world:",dailyWords:"Daily words",dailyQuote:"Daily quote",myMotto:"My motto / goal",mottoPlaceholder:"Write something you want to see every day…",dailyHint:"A tiny line, not a motivational billboard.",focusBreak:"Focus break",breakIntro:"You choose whether a break happens. If yes, you choose how long. Nothing is forced on you.",saveRemember:"Save & remember",sun:"Sun",mon:"Mon",tue:"Tue",wed:"Wed",thu:"Thu",fri:"Fri",sat:"Sat",boulangerie:"boulangerie",aquarium:"aquarium",lavender:"lavender",cloudy:"cloudy",rouge:"rouge",
+  personalize:"Personalize",language:"Language",todayQuestion:"What do I want to do today?",addToday:"Add something you want to do today…",add:"Add",todaysProgress:"Today's progress",focusTimeToday:"Focus time today",chooseTask:"Choose a task to begin.",pomodoro25:"Pomodoro · 25m",quick15:"Quick · 15m",deep50:"Deep · 50m",deep60:"Deep · 60m",openTimer:"Open timer",custom:"Custom",minutes:"minutes",setTimer:"Set timer",start:"Start",pause:"Pause",reset:"Reset",doneTimer:"Done",saveFocusPrompt:"Save this focus session?",saveFocusSub:"Keep this session in your focus history.",saveFocusSubShort:"This session is under 1 minute, so it will not be added to your history.",save:"Save",afterFocus:"After focus",noBreak:"No break",setBreak:"Set break",breakMinutes:"break minutes",calendarNote:"Click any date to add tasks for that day.",dayPlanner:"DAY PLANNER",focusCompleted:"Focus completed",dayTask:"What needs to happen that day?",focusHistory:"FOCUS HISTORY",focusArchive:"Your focus archive",historySub:"Open to see your focus stats and all completed sessions.",all:"All",today:"Today",thisWeek:"This week",thisMonth:"This month",totalFocus:"Total focus",dailyAverage:"Daily average",sessions:"Sessions",bestDay:"Best day",focusTrend:"Focus trend",editFocusSession:"Edit focus session",date:"Date",focusMinutes:"Focus time (minutes)",whatFocused:"What were you focusing on?",optionalNote:"Optional note",cancel:"Cancel",saveChanges:"Save changes",yourName:"Your name",namePlaceholder:"What should we call you?",makeStenoYours:"Make steno yours",colorIntro:"Pick three colors. They each have a job — so your theme feels intentional instead of becoming a rainbow accident.",background:"Background",wholePage:"The whole page",accent:"Accent",buttonsActions:"Buttons & actions",atmosphere:"Atmosphere",cardsSurfaces:"Cards & soft surfaces",pickWorld:"Pick a little world:",dailyWords:"Daily words",dailyQuote:"Daily quote",myMotto:"My motto / goal",mottoPlaceholder:"Write something you want to see every day…",dailyHint:"A tiny line, not a motivational billboard.",focusBreak:"Focus break",breakIntro:"You choose whether a break happens. If yes, you choose how long. Nothing is forced on you.",saveRemember:"Save & remember",sun:"Sun",mon:"Mon",tue:"Tue",wed:"Wed",thu:"Thu",fri:"Fri",sat:"Sat",boulangerie:"boulangerie",aquarium:"aquarium",lavender:"lavender",cloudy:"cloudy",rouge:"rouge",
   welcomeBack:"Welcome back.",welcomeSub:"Your little focus space, saved under your own account.",makeSpace:"Make your little space.",makeSpaceSub:"Just a username and password. No life story required.",authNote:"Your account and focus history stay in this browser for now — a simple space to plan, focus, and reflect.",
   validUsername:"Username: 3–24 letters, numbers, or underscores.",validPassword:"Password: at least 8 characters and include a number.",userExists:"That username already exists on this browser.",passwordMismatch:"Those passwords don't match.",noAccount:"No account with that username here.",wrongPassword:"Username or password isn't right.",logout:"log out",
   taskEmpty:"Nothing here yet.<br>Add one small thing you want to get done.",done:"done",focusCompleteBreak:"Focus complete. {min}-minute break starting.",focusComplete:"Focus complete. Nicely done.",breakComplete:"Break complete. Back to whatever matters.",breakBanner:"☕ Nice. Focus done. Your break settings are doing their thing.",focusSet:"{min}-minute focus set",noPlans:"No plans for this day yet.",noHistory:"No focus records here yet. Finish a focus session and it will appear here.",sessionInPeriod:"{n} session{s} in this period",noFocusYet:"No focus yet",completedSession:"Completed focus session",completedSessions:"Completed focus sessions",todayChart:"Today",weekChart:"This week",monthChart:"This month",focusRecordUpdated:"Focus record updated.",focusRecordDeleted:"Focus record deleted.",enterDateTime:"Please enter a date and focus time.",deleteConfirm:"Delete this focus record? This cannot be undone.",saved:"Personalization saved — I’ll remember it.",previousFocus:"Previous focus",importedFromEarlier:"Imported from earlier steno data",focusSession:"Focus session",untitled:"Untitled",
@@ -526,7 +549,7 @@ const I18N={
  zh:{
   login:"登录",createAccount:"创建账号",username:"用户名",password:"密码",confirmPassword:"确认密码",enterUsername:"输入你的用户名",passwordHint:"至少 8 个字符",typeAgain:"再输入一次",
   insideSteno:"探索 steno",focusAndNotebook:"专注",previewIntro:"一个安静而专注的空间，把注意力放在真正重要的事情上。",currentFocus:"正在专注",previewTask:"阅读并标注今天的文章",researchIdeas:"研究想法",quickThought:"随手记",focusReflection:"专注回顾",note:"笔记",twentyFiveMin:"25 分钟",focus:"专注",task:"任务",edit:"编辑",delete:"删除",acrossPeriod:"这段时间",previewCaption:"计划 → 专注 → 明天继续。",
-  personalize:"个性化",language:"语言",todayQuestion:"今天想做什么？",addToday:"添加今天想完成的事情……",add:"添加",todaysProgress:"今日进度",focusTimeToday:"今日专注时间",chooseTask:"选择一个任务开始吧。",pomodoro25:"番茄钟 · 25 分钟",quick15:"快速 · 15 分钟",deep50:"深度 · 50 分钟",deep60:"深度 · 60 分钟",openTimer:"自由计时",custom:"自定义",minutes:"分钟",setTimer:"设置计时",start:"开始",pause:"暂停",reset:"重置",afterFocus:"专注结束后",noBreak:"不休息",setBreak:"设置休息",breakMinutes:"休息分钟数",calendarNote:"点击日期，为那一天添加任务。",dayPlanner:"日程规划",focusCompleted:"已完成专注",dayTask:"那天需要完成什么？",focusHistory:"专注记录",focusArchive:"你的专注档案",historySub:"查看你的专注模式，也可以编辑或删除单次记录。",all:"全部",today:"今天",thisWeek:"本周",thisMonth:"本月",totalFocus:"总专注时间",dailyAverage:"日均专注",sessions:"次数",bestDay:"最佳一天",focusTrend:"专注趋势",editFocusSession:"编辑专注记录",date:"日期",focusMinutes:"专注时间（分钟）",whatFocused:"你当时在专注什么？",optionalNote:"备注（可选）",cancel:"取消",saveChanges:"保存修改",yourName:"你的名字",namePlaceholder:"我们应该怎么称呼你？",makeStenoYours:"让 steno 更像你",colorIntro:"选择三种颜色。每一种都有自己的作用，让你的主题保持有意而为，而不是变成彩虹。",background:"背景",wholePage:"整个页面",accent:"强调色",buttonsActions:"按钮和操作",atmosphere:"氛围",cardsSurfaces:"卡片和柔和区域",pickWorld:"选择一个小世界：",dailyWords:"每日一句",dailyQuote:"每日语录",myMotto:"我的座右铭 / 目标",mottoPlaceholder:"写下一句你想每天看到的话……",dailyHint:"短短一句就好，不要变成励志海报。",focusBreak:"专注休息",breakIntro:"你可以自己决定要不要休息；如果休息，也由你决定多久。一切都由你掌控。",saveRemember:"保存并记住",sun:"日",mon:"一",tue:"二",wed:"三",thu:"四",fri:"五",sat:"六",boulangerie:"面包房",aquarium:"水族馆",lavender:"薰衣草",cloudy:"阴天",rouge:"莓红",
+  personalize:"个性化",language:"语言",todayQuestion:"今天想做什么？",addToday:"添加今天想完成的事情……",add:"添加",todaysProgress:"今日进度",focusTimeToday:"今日专注时间",chooseTask:"选择一个任务开始吧。",pomodoro25:"番茄钟 · 25 分钟",quick15:"快速 · 15 分钟",deep50:"深度 · 50 分钟",deep60:"深度 · 60 分钟",openTimer:"自由计时",custom:"自定义",minutes:"分钟",setTimer:"设置计时",start:"开始",pause:"暂停",reset:"重置",doneTimer:"完成",saveFocusPrompt:"要保存这次专注吗？",saveFocusSub:"保存后，这次专注会出现在你的专注记录里。",saveFocusSubShort:"这次专注不足 1 分钟，不会加入专注记录。",save:"保存",afterFocus:"专注结束后",noBreak:"不休息",setBreak:"设置休息",breakMinutes:"休息分钟数",calendarNote:"点击日期，为那一天添加任务。",dayPlanner:"日程规划",focusCompleted:"已完成专注",dayTask:"那天需要完成什么？",focusHistory:"专注记录",focusArchive:"你的专注档案",historySub:"查看你的专注模式，也可以编辑或删除单次记录。",all:"全部",today:"今天",thisWeek:"本周",thisMonth:"本月",totalFocus:"总专注时间",dailyAverage:"日均专注",sessions:"次数",bestDay:"最佳一天",focusTrend:"专注趋势",editFocusSession:"编辑专注记录",date:"日期",focusMinutes:"专注时间（分钟）",whatFocused:"你当时在专注什么？",optionalNote:"备注（可选）",cancel:"取消",saveChanges:"保存修改",yourName:"你的名字",namePlaceholder:"我们应该怎么称呼你？",makeStenoYours:"让 steno 更像你",colorIntro:"选择三种颜色。每一种都有自己的作用，让你的主题保持有意而为，而不是变成彩虹。",background:"背景",wholePage:"整个页面",accent:"强调色",buttonsActions:"按钮和操作",atmosphere:"氛围",cardsSurfaces:"卡片和柔和区域",pickWorld:"选择一个小世界：",dailyWords:"每日一句",dailyQuote:"每日语录",myMotto:"我的座右铭 / 目标",mottoPlaceholder:"写下一句你想每天看到的话……",dailyHint:"短短一句就好，不要变成励志海报。",focusBreak:"专注休息",breakIntro:"你可以自己决定要不要休息；如果休息，也由你决定多久。一切都由你掌控。",saveRemember:"保存并记住",sun:"日",mon:"一",tue:"二",wed:"三",thu:"四",fri:"五",sat:"六",boulangerie:"面包房",aquarium:"水族馆",lavender:"薰衣草",cloudy:"阴天",rouge:"莓红",
   welcomeBack:"欢迎回来。",welcomeSub:"属于你自己的小小专注空间。",makeSpace:"打造你的小空间。",makeSpaceSub:"只需要用户名和密码，不需要讲述人生故事。",authNote:"目前，你的账号和专注记录都保存在这个浏览器里——一个用来计划、专注和回顾的小空间。",
   validUsername:"用户名需为 3–24 位字母、数字或下划线。",validPassword:"密码至少 8 个字符，并包含数字。",userExists:"这个用户名已经在此浏览器中存在。",passwordMismatch:"两次输入的密码不一致。",noAccount:"此浏览器中没有找到这个用户名。",wrongPassword:"用户名或密码不正确。",logout:"退出",
   taskEmpty:"这里还没有任务。<br>先加一件你想完成的小事吧。",done:"已完成",focusCompleteBreak:"专注完成。接下来休息 {min} 分钟。",focusComplete:"专注完成，做得不错。",breakComplete:"休息结束，回到重要的事情上吧。",breakBanner:"☕ 很好，专注完成。接下来交给你的休息设置。",focusSet:"已设置 {min} 分钟专注",noPlans:"这一天还没有计划。",noHistory:"这里还没有专注记录。完成一次专注后，它会出现在这里。",sessionInPeriod:"这段时间内有 {n} 次专注",noFocusYet:"还没有专注记录",completedSession:"已完成专注",completedSessions:"已完成专注",todayChart:"今天",weekChart:"本周",monthChart:"本月",focusRecordUpdated:"专注记录已更新。",focusRecordDeleted:"专注记录已删除。",enterDateTime:"请输入日期和专注时间。",deleteConfirm:"确定删除这条专注记录吗？此操作无法撤销。",saved:"个性化设置已保存。",previousFocus:"之前的专注",importedFromEarlier:"从之前的 steno 数据导入",focusSession:"专注记录",untitled:"未命名",
@@ -2127,7 +2150,7 @@ function finishFocusSession(){
  if(!activeSession)return;
  const session=activeSession;
  activeSession=null;
- if(Number(session.durationSeconds||0)<=60){save();return;}
+ if(Number(session.durationSeconds||0)<60){save();return;}
  session.endedAt=new Date().toISOString();
  state.focusSessions.unshift(session);
  if(session.taskId){const task=taskList(session.date).find(x=>x.id===session.taskId);if(task)task.seconds=(Number(task.seconds)||0)+Number(session.durationSeconds||0);}
@@ -2155,9 +2178,29 @@ function applyTheme(){
  document.documentElement.style.setProperty("--accent-soft",`rgba(${r},${g},${b},.10)`);
 }
 function renderGreeting(){
- const h=new Date().getHours(), base=h<12?"Good morning":h<18?"Good afternoon":"Good evening";
- document.getElementById("greeting").textContent=state.name?`${base}, ${state.name}.`:`${base}.`;
- document.getElementById("date").textContent=new Date().toLocaleDateString(currentLang==="zh"?"zh-CN":"en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"});
+ const now=new Date(), h=now.getHours();
+ const early=h>=5&&h<8, morning=h>=8&&h<12, afternoon=h>=12&&h<18, evening=h>=18&&h<24, late=h>=0&&h<5;
+ const zhSets={
+   late:["凌晨了，记得早点休息哦。","还没睡吗？明天的自己会感谢今晚早点睡。","夜猫子也要充电，早点休息吧。","这个点还在努力？记得给自己留一点睡眠。"],
+   early:["早安！这么早就醒了，先给今天打个招呼吧。","早起成功！今天的第一件小事已经完成。","早上好，太阳还在加载中，你先上线了。","这么早就见面了？先慢慢醒醒，再开始今天吧。"],
+   morning:["早上好，今天也从一件小事开始吧。","早安！先搞定最重要的那一件。","早上好，今天的专注力请上线。","新的一天加载完成，准备开始了吗？"],
+   afternoon:["下午好，午后也可以重新开一局。","下午好！困意可以有，进度不能全没有。","下午好，今天还来得及完成一点重要的事。","下午场开始，慢慢把注意力收回来。"],
+   evening:["晚上好，今天还想为自己完成什么？","晚上好！把今天最后一点专注力用好。","夜幕降临，适合安静地完成一件事。","晚上好，今天已经走了很远，慢慢收尾吧。"]
+ };
+ const enSets={
+   late:["It’s late. Remember to get some rest.","Still awake? Tomorrow-you would probably vote for some sleep.","Night owl mode detected. Don’t forget to recharge.","Working this late? Leave a little room for sleep, too."],
+   early:["Up early? Good morning, sleepy world.","Good morning! You’re here before the sun has fully clocked in.","Early start detected. Take it easy and wake up first.","You’re up early. That counts as today’s first little win."],
+   morning:["Good morning. Start with one small thing.","Morning! Let’s get the most important thing moving.","Good morning. Time to bring your focus online.","A new day has loaded. Ready when you are."],
+   afternoon:["Good afternoon. There’s still plenty of day left.","Afternoon! A little sleepy is allowed. A little progress too.","Good afternoon. There’s still time to finish something that matters.","Afternoon mode: gently bring your attention back."],
+   evening:["Good evening. What would you like to finish today?","Good evening. One last focused push, if you feel like it.","The day is winding down. Perfect time for one quiet task.","Good evening. You’ve come this far—let’s wrap up gently."]
+ };
+ const bucket=late?"late":early?"early":morning?"morning":afternoon?"afternoon":"evening";
+ const sets=currentLang==="zh"?zhSets:enSets;
+ const options=sets[bucket];
+ const index=(now.getDate()+now.getMonth()*3+now.getDay())%options.length;
+ const base=options[index];
+ document.getElementById("greeting").textContent=state.name?(currentLang==="zh"?`${base} ${state.name}。`:`${base} ${state.name}.`):base;
+ document.getElementById("date").textContent=now.toLocaleDateString(currentLang==="zh"?"zh-CN":"en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"});
 }
 function renderQuote(){
  const mode=state.quoteMode||"daily";
@@ -2233,6 +2276,35 @@ function tick(){
  save();updateTimer();renderTasks();if(selectedDate===todayKey())renderDayPanel();
 }
 function pauseTimer(){running=false;clearInterval(interval);interval=null;document.getElementById("startBtn").textContent=t("start")}
+function doneTimer(){
+ if(breakMode){
+   pauseTimer();
+   breakMode=false;
+   document.getElementById("breakBanner").classList.remove("show");
+   modeMinutes=25;remaining=1500;
+   document.getElementById("currentTask").textContent=currentId?(taskList(todayKey()).find(x=>x.id===currentId)?.name||t("chooseTask")):t("chooseTask");
+   updateTimer();
+   return;
+ }
+ if(!activeSession || Number(activeSession.durationSeconds||0)<=0)return;
+ pauseTimer();
+ const text=document.getElementById("doneModalText");
+ if(text)text.textContent=Number(activeSession.durationSeconds||0)<60 ? t("saveFocusSubShort") : t("saveFocusSub");
+ document.getElementById("doneModal").classList.add("open");
+}
+function closeDoneModal(){document.getElementById("doneModal").classList.remove("open")}
+function saveDoneSession(){
+ closeDoneModal();
+ if(!activeSession)return;
+ finishFocusSession();
+ playBell();
+ document.getElementById("breakBanner").classList.remove("show");
+ breakMode=false;
+ modeMinutes=25;remaining=1500;
+ document.getElementById("currentTask").textContent=currentId?(taskList(todayKey()).find(x=>x.id===currentId)?.name||t("chooseTask")):t("chooseTask");
+ updateTimer();
+ toast(t("focusComplete"));
+}
 function resetTimer(){if(running)pauseTimer();else activeSession=null;breakMode=false;document.getElementById("breakBanner").classList.remove("show");remaining=modeMinutes*60;updateTimer()}
 function finishFocus(){
  pauseTimer();finishFocusSession();playBell();
