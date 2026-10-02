@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>steno — focus & notes</title>
+<title>steno — focus</title>
 <style>
 :root{
   --bg:#f7f7f4; --card:#fff; --text:#202124; --muted:#777;
@@ -59,11 +59,16 @@ input:focus{border-color:var(--accent)}
 .day-focus-label{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
 .day-focus-time{font-size:16px;font-weight:650;font-variant-numeric:tabular-nums}
 
-.history-card{margin-top:22px}.history-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px}.history-title{font-size:18px;font-weight:650}.history-sub{font-size:12px;color:var(--muted);margin-top:3px}.history-list{display:flex;flex-direction:column;gap:9px}.history-item{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:12px 13px;border:1px solid var(--line);border-radius:13px;background:var(--card)}.history-main{min-width:0}.history-date{font-size:12px;color:var(--muted);margin-bottom:3px}.history-task{font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.history-note{font-size:12px;color:var(--muted);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.history-duration{font-size:15px;font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap}.history-actions{display:flex;gap:5px}.history-actions button{padding:7px 9px;border-radius:9px;background:var(--bg);font-size:12px}.history-empty{padding:28px 10px;text-align:center;color:var(--muted);font-size:13px}.history-filter{display:flex;gap:7px;align-items:center}.history-filter input{width:145px}.history-modal{position:fixed;inset:0;background:rgba(20,20,20,.34);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}.history-modal.open{display:flex}.history-modal-card{width:min(430px,100%);background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.16)}.history-modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.history-modal-head h2{margin:0;font-size:18px}.history-field{margin-bottom:12px}.history-field label{display:block;font-size:11px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}.history-field input{width:100%}.history-modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+.history-card{margin-top:22px;padding:0;overflow:hidden}.history-card>summary{list-style:none;cursor:pointer;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:14px}.history-card>summary::-webkit-details-marker{display:none}.history-chevron{font-size:20px;color:var(--muted);transition:transform .18s ease}.history-card[open] .history-chevron{transform:rotate(180deg)}.history-body{padding:0 20px 20px}.history-summary .history-title{margin-top:3px}.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}.stat-card{border:1px solid var(--line);border-radius:13px;padding:13px;background:var(--card);display:flex;flex-direction:column;gap:5px}.stat-card strong{font-size:21px}.history-card .history-chart{margin-top:12px}.history-filter{display:flex;gap:7px;align-items:center}.history-filter input{width:145px}@media(max-width:800px){.stat-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:650px){.stat-grid{grid-template-columns:1fr}.history-body{padding:0 14px 14px}}
+.history-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px}.history-title{font-size:18px;font-weight:650}.history-sub{font-size:12px;color:var(--muted);margin-top:3px}.history-list{display:flex;flex-direction:column;gap:9px}.history-item{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:12px 13px;border:1px solid var(--line);border-radius:13px;background:var(--card)}.history-main{min-width:0}.history-date{font-size:12px;color:var(--muted);margin-bottom:3px}.history-task{font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.history-note{font-size:12px;color:var(--muted);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.history-duration{font-size:15px;font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap}.history-actions{display:flex;gap:5px}.history-actions button{padding:7px 9px;border-radius:9px;background:var(--bg);font-size:12px}.history-empty{padding:28px 10px;text-align:center;color:var(--muted);font-size:13px}.history-filter{display:flex;gap:7px;align-items:center}.history-filter input{width:145px}.history-modal{position:fixed;inset:0;background:rgba(20,20,20,.34);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}.history-modal.open{display:flex}.history-modal-card{width:min(430px,100%);background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.16)}.history-modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.history-modal-head h2{margin:0;font-size:18px}.history-field{margin-bottom:12px}.history-field label{display:block;font-size:11px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}.history-field input{width:100%}.history-modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
 .history-stats{margin-bottom:18px}
 .history-range{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 16px}
-.history-range button{padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-size:12px;color:var(--muted)}
-.history-range button.active{background:var(--ink);color:var(--card);border-color:var(--ink)}
+.history-range button{padding:9px 13px;border-radius:10px;border:1px solid var(--line);background:var(--card);font-size:12px;color:var(--text);cursor:pointer}
+.history-range button:hover{border-color:var(--accent);color:var(--accent)}
+.history-range button.active{background:var(--accent-soft);color:var(--accent);border-color:var(--accent);font-weight:650}
+.history-filter input{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:10px;padding:9px 10px}
+.history-filter .ghost,.history-actions button{border:1px solid var(--line);background:var(--card);color:var(--text);cursor:pointer}
+.history-filter .ghost:hover,.history-actions button:hover{border-color:var(--accent);color:var(--accent)}
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
 .stat-card{border:1px solid var(--line);border-radius:14px;padding:13px;background:var(--bg)}
 .stat-label{font-size:11px;text-transform:uppercase;letter-spacing:.055em;color:var(--muted);margin-bottom:7px}
@@ -73,14 +78,14 @@ input:focus{border-color:var(--accent)}
 .chart-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
 .chart-title{font-size:13px;font-weight:650}
 .chart-caption{font-size:11px;color:var(--muted)}
-.focus-bars{height:148px;display:flex;align-items:flex-end;gap:7px;padding-top:8px}
+.focus-trend-bars{height:148px;display:flex;align-items:flex-end;gap:7px;padding-top:8px}
 .focus-bar-col{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px}
 .focus-bar-wrap{height:112px;width:100%;display:flex;align-items:flex-end;justify-content:center;border-bottom:1px solid var(--line)}
 .focus-bar{width:min(26px,72%);min-height:2px;border-radius:7px 7px 2px 2px;background:var(--accent);opacity:.82;transition:height .2s ease}
 .focus-bar:hover{opacity:1}
 .focus-bar-label{font-size:10px;color:var(--muted);white-space:nowrap}
 .focus-bar-value{font-size:9px;color:var(--muted);height:12px;white-space:nowrap}
-@media(max-width:760px){.stats-grid{grid-template-columns:repeat(2,1fr)}.focus-bars{gap:4px}.focus-bar-label{font-size:9px}}
+@media(max-width:760px){.stats-grid{grid-template-columns:repeat(2,1fr)}.focus-trend-bars{gap:4px}.focus-bar-label{font-size:9px}}
 
 @media(max-width:650px){.history-item{grid-template-columns:1fr auto}.history-actions{grid-column:1/-1}.history-filter input{width:120px}}
 .section-row{display:flex;justify-content:space-between;align-items:center}
@@ -279,17 +284,16 @@ body{background:var(--bg)}
       </div>
       <div class="auth-error" id="authError"></div>
       <button class="primary" style="width:100%" onclick="submitAuth()" id="authSubmit">Log in</button>
-      <div class="auth-note" id="authNote" data-i18n="authNote">Your account, notes, and focus history stay in this browser for now — a simple space to plan, focus, and reflect.</div>
+      <div class="auth-note" id="authNote" data-i18n="authNote">Your account and focus history stay in this browser for now — a simple space to plan, focus, and reflect.</div>
     </div>
 
     <div class="auth-preview">
       <div class="auth-preview-kicker" data-i18n="insideSteno">Inside steno</div>
-      <h3 data-i18n="focusAndNotebook">Focus + Notebook.</h3>
-      <p data-i18n="previewIntro">Two small tools in one quiet space: focus on what matters, then keep the thoughts that come with it.</p>
+      <h3 data-i18n="focusAndNotebook">Focus.</h3>
+      <p data-i18n="previewIntro">A quiet space to focus on what matters and keep your attention on one thing at a time.</p>
       <div class="preview-app">
         <div class="preview-tabs">
           <button class="preview-tab active" data-i18n="focus">Focus</button>
-          <button class="preview-tab" data-i18n="notebook">Notebook</button>
         </div>
         <div class="preview-screen">
           <div class="preview-screen-head"><div class="preview-screen-title" data-i18n="currentFocus">CURRENT FOCUS</div><span class="small">25m</span></div>
@@ -297,14 +301,8 @@ body{background:var(--bg)}
           <div class="preview-timer">18:42</div>
           <div class="preview-progress"><span></span></div>
         </div>
-        <div class="preview-screen" style="margin-top:8px">
-          <div class="preview-screen-head"><div class="preview-screen-title" data-i18n="notebook">NOTEBOOK</div><span class="small">3</span></div>
-          <div class="preview-notebook-line"><span data-i18n="researchIdeas">Research ideas</span><span data-i18n="note">Note</span></div>
-          <div class="preview-notebook-line"><span data-i18n="quickThought">Quick thought</span><span data-i18n="note">Note</span></div>
-          <div class="preview-notebook-line"><span data-i18n="focusReflection">Focus reflection</span><span data-i18n="twentyFiveMin">25 min</span></div>
-        </div>
       </div>
-      <div class="preview-caption" data-i18n="previewCaption">Plan → focus → write it down → come back tomorrow.</div>
+      <div class="preview-caption" data-i18n="previewCaption">Plan → focus → come back tomorrow.</div>
     </div>
   </div>
 </div>
@@ -327,11 +325,6 @@ body{background:var(--bg)}
 </div>
 
 <div id="breakBanner" class="break-banner">☕ Nice. Focus done. Your break settings are doing their thing.</div>
-
-<div class="tabbar">
-  <button class="tab active" id="focusTab" onclick="switchPage('focus')"><span data-i18n="focus">Focus</span></button>
-  <button class="tab" id="notesTab" onclick="switchPage('notes')"><span data-i18n="notebook">Notebook</span></button>
-</div>
 
 <div class="page active" id="focusPage"><div class="grid">
 <section class="card">
@@ -378,7 +371,6 @@ body{background:var(--bg)}
     <div class="option-title" data-i18n="afterFocus">After focus</div>
     <div class="choice-row">
       <button class="choice active" id="breakOff" onclick="setBreakChoice(false,this)"><span data-i18n="noBreak">No break</span></button>
-      <button class="choice" onclick="setBreakChoice(true,this)"><span data-i18n="break">Break</span></button>
       <button class="choice" onclick="setBreakChoice(true,this,5)">5m</button>
       <button class="choice" onclick="setBreakChoice(true,this,10)">10m</button>
       <button class="choice" onclick="setBreakChoice(true,this,15)">15m</button>
@@ -417,20 +409,40 @@ body{background:var(--bg)}
   <div class="day-list" id="dayList"></div>
 </section>
 </div>
-</div>
 
-<div class="page" id="notesPage">
-<section class="card notebook">
-  <div class="focus-label" data-i18n="notebook">NOTEBOOK</div>
-  <div class="note-toolbar">
-    <div class="small" data-i18n="notebookIntro">A little place to dump thoughts, plans, nonsense, and suddenly brilliant ideas.</div>
-    <button class="ghost" onclick="newNote()"><span data-i18n="newNote">+ New note</span></button>
+<details class="card history-card" id="historyArchive">
+  <summary class="history-summary">
+    <div>
+      <div class="focus-label" data-i18n="focusHistory">FOCUS HISTORY</div>
+      <div class="history-title" data-i18n="focusArchive">Your focus archive</div>
+      <div class="history-sub" data-i18n="historySub">Open to see your focus stats and all completed sessions.</div>
+    </div>
+    <span class="history-chevron">⌄</span>
+  </summary>
+  <div class="history-body">
+    <div class="history-head">
+      <div></div>
+      <div class="history-filter"><input type="date" id="historyDateFilter" onchange="renderFocusHistory()"><button class="ghost" onclick="clearHistoryFilter()"><span data-i18n="all">All</span></button></div>
+    </div>
+    <div class="history-stats">
+      <div class="history-range">
+        <button id="rangeWeek" class="active" onclick="setHistoryRange('week')"><span data-i18n="thisWeek">This week</span></button>
+        <button id="rangeMonth" onclick="setHistoryRange('month')"><span data-i18n="thisMonth">This month</span></button>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="focus-label" data-i18n="totalFocus">TOTAL FOCUS</div><strong id="statTotal">0m</strong><span id="statTotalNote" class="small"></span></div>
+        <div class="stat-card"><div class="focus-label" data-i18n="dailyAverage">DAILY AVERAGE</div><strong id="statAverage">0m</strong><span class="small" data-i18n="acrossPeriod">Across this period</span></div>
+        <div class="stat-card"><div class="focus-label" data-i18n="sessions">SESSIONS</div><strong id="statSessions">0</strong><span id="statSessionNote" class="small" data-i18n="completedSessions">Completed focus sessions</span></div>
+        <div class="stat-card"><div class="focus-label" data-i18n="bestDay">BEST DAY</div><strong id="statBestDay">—</strong><span id="statBestDayTime" class="small" data-i18n="noFocusYet">No focus yet</span></div>
+      </div>
+      <div class="history-chart">
+        <div class="section-row"><strong data-i18n="focusTrend">Focus trend</strong><span class="small" id="chartCaption">This week</span></div>
+        <div class="focus-trend-bars" id="focusTrendBars"></div>
+      </div>
+    </div>
+    <div class="history-list" id="focusHistoryList"></div>
   </div>
-  <div class="note-list" id="noteList"></div>
-  <input class="note-title" id="noteTitle" data-i18n-placeholder="untitledNote" placeholder="Untitled note">
-  <textarea class="note-area" id="noteArea" data-i18n-placeholder="writeNote" placeholder="Write whatever is on your mind…"></textarea>
-</section>
-</div>
+</details>
 
 <div class="history-modal" id="historyModal">
   <div class="history-modal-card">
@@ -504,18 +516,18 @@ body{background:var(--bg)}
 const I18N={
  en:{
   login:"Log in",createAccount:"Create account",username:"Username",password:"Password",confirmPassword:"Confirm password",enterUsername:"Enter your username",passwordHint:"At least 8 characters",typeAgain:"Type it again",
-  insideSteno:"Inside steno",focusAndNotebook:"Focus + Notebook.",previewIntro:"Two small tools in one quiet space: focus on what matters, then keep the thoughts that come with it.",currentFocus:"CURRENT FOCUS",previewTask:"Read and annotate today's article",researchIdeas:"Research ideas",quickThought:"Quick thought",focusReflection:"Focus reflection",note:"Note",twentyFiveMin:"25 min",focus:"Focus",task:"Task",edit:"Edit",delete:"Delete",acrossPeriod:"Across this period",previewCaption:"Plan → focus → write it down → come back tomorrow.",
-  personalize:"Personalize",language:"Language",todayQuestion:"What do I want to do today?",addToday:"Add something you want to do today…",add:"Add",todaysProgress:"Today's progress",focusTimeToday:"Focus time today",chooseTask:"Choose a task to begin.",pomodoro25:"Pomodoro · 25m",quick15:"Quick · 15m",deep50:"Deep · 50m",deep60:"Deep · 60m",openTimer:"Open timer",custom:"Custom",minutes:"minutes",setTimer:"Set timer",start:"Start",pause:"Pause",reset:"Reset",afterFocus:"After focus",noBreak:"No break",break:"Break",setBreak:"Set break",breakMinutes:"break minutes",calendarNote:"Click any date to add tasks for that day.",dayPlanner:"DAY PLANNER",focusCompleted:"Focus completed",dayTask:"What needs to happen that day?",focusHistory:"FOCUS HISTORY",focusArchive:"Your focus archive",historySub:"See your patterns, then review, edit, or remove individual sessions.",all:"All",today:"Today",thisWeek:"This week",thisMonth:"This month",totalFocus:"Total focus",dailyAverage:"Daily average",sessions:"Sessions",bestDay:"Best day",focusTrend:"Focus trend",notebook:"NOTEBOOK",notebookIntro:"A little place to dump thoughts, plans, nonsense, and suddenly brilliant ideas.",newNote:"+ New note",untitledNote:"Untitled note",writeNote:"Write whatever is on your mind…",editFocusSession:"Edit focus session",date:"Date",focusMinutes:"Focus time (minutes)",whatFocused:"What were you focusing on?",optionalNote:"Optional note",cancel:"Cancel",saveChanges:"Save changes",yourName:"Your name",namePlaceholder:"What should we call you?",makeStenoYours:"Make steno yours",colorIntro:"Pick three colors. They each have a job — so your theme feels intentional instead of becoming a rainbow accident.",background:"Background",wholePage:"The whole page",accent:"Accent",buttonsActions:"Buttons & actions",atmosphere:"Atmosphere",cardsSurfaces:"Cards & soft surfaces",pickWorld:"Pick a little world:",dailyWords:"Daily words",dailyQuote:"Daily quote",myMotto:"My motto / goal",mottoPlaceholder:"Write something you want to see every day…",dailyHint:"A tiny line, not a motivational billboard.",focusBreak:"Focus break",breakIntro:"You choose whether a break happens. If yes, you choose how long. Nothing is forced on you.",saveRemember:"Save & remember",sun:"Sun",mon:"Mon",tue:"Tue",wed:"Wed",thu:"Thu",fri:"Fri",sat:"Sat",boulangerie:"boulangerie",aquarium:"aquarium",lavender:"lavender",cloudy:"cloudy",rouge:"rouge",
-  welcomeBack:"Welcome back.",welcomeSub:"Your little focus space, saved under your own account.",makeSpace:"Make your little space.",makeSpaceSub:"Just a username and password. No life story required.",authNote:"Your account, notes, and focus history stay in this browser for now — a simple space to plan, focus, and reflect.",
+  insideSteno:"Inside steno",focusAndNotebook:"Focus.",previewIntro:"A quiet space to focus on what matters and keep your attention on one thing at a time.",currentFocus:"CURRENT FOCUS",previewTask:"Read and annotate today's article",researchIdeas:"Research ideas",quickThought:"Quick thought",focusReflection:"Focus reflection",note:"Note",twentyFiveMin:"25 min",focus:"Focus",task:"Task",edit:"Edit",delete:"Delete",acrossPeriod:"Across this period",previewCaption:"Plan → focus → come back tomorrow.",
+  personalize:"Personalize",language:"Language",todayQuestion:"What do I want to do today?",addToday:"Add something you want to do today…",add:"Add",todaysProgress:"Today's progress",focusTimeToday:"Focus time today",chooseTask:"Choose a task to begin.",pomodoro25:"Pomodoro · 25m",quick15:"Quick · 15m",deep50:"Deep · 50m",deep60:"Deep · 60m",openTimer:"Open timer",custom:"Custom",minutes:"minutes",setTimer:"Set timer",start:"Start",pause:"Pause",reset:"Reset",afterFocus:"After focus",noBreak:"No break",setBreak:"Set break",breakMinutes:"break minutes",calendarNote:"Click any date to add tasks for that day.",dayPlanner:"DAY PLANNER",focusCompleted:"Focus completed",dayTask:"What needs to happen that day?",focusHistory:"FOCUS HISTORY",focusArchive:"Your focus archive",historySub:"Open to see your focus stats and all completed sessions.",all:"All",today:"Today",thisWeek:"This week",thisMonth:"This month",totalFocus:"Total focus",dailyAverage:"Daily average",sessions:"Sessions",bestDay:"Best day",focusTrend:"Focus trend",editFocusSession:"Edit focus session",date:"Date",focusMinutes:"Focus time (minutes)",whatFocused:"What were you focusing on?",optionalNote:"Optional note",cancel:"Cancel",saveChanges:"Save changes",yourName:"Your name",namePlaceholder:"What should we call you?",makeStenoYours:"Make steno yours",colorIntro:"Pick three colors. They each have a job — so your theme feels intentional instead of becoming a rainbow accident.",background:"Background",wholePage:"The whole page",accent:"Accent",buttonsActions:"Buttons & actions",atmosphere:"Atmosphere",cardsSurfaces:"Cards & soft surfaces",pickWorld:"Pick a little world:",dailyWords:"Daily words",dailyQuote:"Daily quote",myMotto:"My motto / goal",mottoPlaceholder:"Write something you want to see every day…",dailyHint:"A tiny line, not a motivational billboard.",focusBreak:"Focus break",breakIntro:"You choose whether a break happens. If yes, you choose how long. Nothing is forced on you.",saveRemember:"Save & remember",sun:"Sun",mon:"Mon",tue:"Tue",wed:"Wed",thu:"Thu",fri:"Fri",sat:"Sat",boulangerie:"boulangerie",aquarium:"aquarium",lavender:"lavender",cloudy:"cloudy",rouge:"rouge",
+  welcomeBack:"Welcome back.",welcomeSub:"Your little focus space, saved under your own account.",makeSpace:"Make your little space.",makeSpaceSub:"Just a username and password. No life story required.",authNote:"Your account and focus history stay in this browser for now — a simple space to plan, focus, and reflect.",
   validUsername:"Username: 3–24 letters, numbers, or underscores.",validPassword:"Password: at least 8 characters and include a number.",userExists:"That username already exists on this browser.",passwordMismatch:"Those passwords don't match.",noAccount:"No account with that username here.",wrongPassword:"Username or password isn't right.",logout:"log out",
   taskEmpty:"Nothing here yet.<br>Add one small thing you want to get done.",done:"done",focusCompleteBreak:"Focus complete. {min}-minute break starting.",focusComplete:"Focus complete. Nicely done.",breakComplete:"Break complete. Back to whatever matters.",breakBanner:"☕ Nice. Focus done. Your break settings are doing their thing.",focusSet:"{min}-minute focus set",noPlans:"No plans for this day yet.",noHistory:"No focus records here yet. Finish a focus session and it will appear here.",sessionInPeriod:"{n} session{s} in this period",noFocusYet:"No focus yet",completedSession:"Completed focus session",completedSessions:"Completed focus sessions",todayChart:"Today",weekChart:"This week",monthChart:"This month",focusRecordUpdated:"Focus record updated.",focusRecordDeleted:"Focus record deleted.",enterDateTime:"Please enter a date and focus time.",deleteConfirm:"Delete this focus record? This cannot be undone.",saved:"Personalization saved — I’ll remember it.",previousFocus:"Previous focus",importedFromEarlier:"Imported from earlier steno data",focusSession:"Focus session",untitled:"Untitled",
   morning:"Good morning",afternoon:"Good afternoon",evening:"Good evening",yourReminder:"your little reminder",
  },
  zh:{
   login:"登录",createAccount:"创建账号",username:"用户名",password:"密码",confirmPassword:"确认密码",enterUsername:"输入你的用户名",passwordHint:"至少 8 个字符",typeAgain:"再输入一次",
-  insideSteno:"探索 steno",focusAndNotebook:"专注 + 笔记本",previewIntro:"两个安静而实用的小工具放在一起：专注于重要的事，也把专注时冒出的想法留下来。",currentFocus:"正在专注",previewTask:"阅读并标注今天的文章",researchIdeas:"研究想法",quickThought:"随手记",focusReflection:"专注回顾",note:"笔记",twentyFiveMin:"25 分钟",focus:"专注",task:"任务",edit:"编辑",delete:"删除",acrossPeriod:"这段时间",previewCaption:"计划 → 专注 → 记下来 → 明天继续。",
-  personalize:"个性化",language:"语言",todayQuestion:"今天想做什么？",addToday:"添加今天想完成的事情……",add:"添加",todaysProgress:"今日进度",focusTimeToday:"今日专注时间",chooseTask:"选择一个任务开始吧。",pomodoro25:"番茄钟 · 25 分钟",quick15:"快速 · 15 分钟",deep50:"深度 · 50 分钟",deep60:"深度 · 60 分钟",openTimer:"自由计时",custom:"自定义",minutes:"分钟",setTimer:"设置计时",start:"开始",pause:"暂停",reset:"重置",afterFocus:"专注结束后",noBreak:"不休息",break:"休息",setBreak:"设置休息",breakMinutes:"休息分钟数",calendarNote:"点击日期，为那一天添加任务。",dayPlanner:"日程规划",focusCompleted:"已完成专注",dayTask:"那天需要完成什么？",focusHistory:"专注记录",focusArchive:"你的专注档案",historySub:"查看你的专注模式，也可以编辑或删除单次记录。",all:"全部",today:"今天",thisWeek:"本周",thisMonth:"本月",totalFocus:"总专注时间",dailyAverage:"日均专注",sessions:"次数",bestDay:"最佳一天",focusTrend:"专注趋势",notebook:"笔记本",notebookIntro:"一个可以随手放下想法、计划、废话，以及突然冒出来的好点子的地方。",newNote:"+ 新建笔记",untitledNote:"未命名笔记",writeNote:"写下此刻脑海里的任何东西……",editFocusSession:"编辑专注记录",date:"日期",focusMinutes:"专注时间（分钟）",whatFocused:"你当时在专注什么？",optionalNote:"备注（可选）",cancel:"取消",saveChanges:"保存修改",yourName:"你的名字",namePlaceholder:"我们应该怎么称呼你？",makeStenoYours:"让 steno 更像你",colorIntro:"选择三种颜色。每一种都有自己的作用，让你的主题保持有意而为，而不是变成彩虹。",background:"背景",wholePage:"整个页面",accent:"强调色",buttonsActions:"按钮和操作",atmosphere:"氛围",cardsSurfaces:"卡片和柔和区域",pickWorld:"选择一个小世界：",dailyWords:"每日一句",dailyQuote:"每日语录",myMotto:"我的座右铭 / 目标",mottoPlaceholder:"写下一句你想每天看到的话……",dailyHint:"短短一句就好，不要变成励志海报。",focusBreak:"专注休息",breakIntro:"你可以自己决定要不要休息；如果休息，也由你决定多久。一切都由你掌控。",saveRemember:"保存并记住",sun:"日",mon:"一",tue:"二",wed:"三",thu:"四",fri:"五",sat:"六",boulangerie:"面包房",aquarium:"水族馆",lavender:"薰衣草",cloudy:"阴天",rouge:"莓红",
-  welcomeBack:"欢迎回来。",welcomeSub:"属于你自己的小小专注空间。",makeSpace:"打造你的小空间。",makeSpaceSub:"只需要用户名和密码，不需要讲述人生故事。",authNote:"目前，你的账号、笔记和专注记录都保存在这个浏览器里——一个用来计划、专注和回顾的小空间。",
+  insideSteno:"探索 steno",focusAndNotebook:"专注",previewIntro:"一个安静而专注的空间，把注意力放在真正重要的事情上。",currentFocus:"正在专注",previewTask:"阅读并标注今天的文章",researchIdeas:"研究想法",quickThought:"随手记",focusReflection:"专注回顾",note:"笔记",twentyFiveMin:"25 分钟",focus:"专注",task:"任务",edit:"编辑",delete:"删除",acrossPeriod:"这段时间",previewCaption:"计划 → 专注 → 明天继续。",
+  personalize:"个性化",language:"语言",todayQuestion:"今天想做什么？",addToday:"添加今天想完成的事情……",add:"添加",todaysProgress:"今日进度",focusTimeToday:"今日专注时间",chooseTask:"选择一个任务开始吧。",pomodoro25:"番茄钟 · 25 分钟",quick15:"快速 · 15 分钟",deep50:"深度 · 50 分钟",deep60:"深度 · 60 分钟",openTimer:"自由计时",custom:"自定义",minutes:"分钟",setTimer:"设置计时",start:"开始",pause:"暂停",reset:"重置",afterFocus:"专注结束后",noBreak:"不休息",setBreak:"设置休息",breakMinutes:"休息分钟数",calendarNote:"点击日期，为那一天添加任务。",dayPlanner:"日程规划",focusCompleted:"已完成专注",dayTask:"那天需要完成什么？",focusHistory:"专注记录",focusArchive:"你的专注档案",historySub:"查看你的专注模式，也可以编辑或删除单次记录。",all:"全部",today:"今天",thisWeek:"本周",thisMonth:"本月",totalFocus:"总专注时间",dailyAverage:"日均专注",sessions:"次数",bestDay:"最佳一天",focusTrend:"专注趋势",editFocusSession:"编辑专注记录",date:"日期",focusMinutes:"专注时间（分钟）",whatFocused:"你当时在专注什么？",optionalNote:"备注（可选）",cancel:"取消",saveChanges:"保存修改",yourName:"你的名字",namePlaceholder:"我们应该怎么称呼你？",makeStenoYours:"让 steno 更像你",colorIntro:"选择三种颜色。每一种都有自己的作用，让你的主题保持有意而为，而不是变成彩虹。",background:"背景",wholePage:"整个页面",accent:"强调色",buttonsActions:"按钮和操作",atmosphere:"氛围",cardsSurfaces:"卡片和柔和区域",pickWorld:"选择一个小世界：",dailyWords:"每日一句",dailyQuote:"每日语录",myMotto:"我的座右铭 / 目标",mottoPlaceholder:"写下一句你想每天看到的话……",dailyHint:"短短一句就好，不要变成励志海报。",focusBreak:"专注休息",breakIntro:"你可以自己决定要不要休息；如果休息，也由你决定多久。一切都由你掌控。",saveRemember:"保存并记住",sun:"日",mon:"一",tue:"二",wed:"三",thu:"四",fri:"五",sat:"六",boulangerie:"面包房",aquarium:"水族馆",lavender:"薰衣草",cloudy:"阴天",rouge:"莓红",
+  welcomeBack:"欢迎回来。",welcomeSub:"属于你自己的小小专注空间。",makeSpace:"打造你的小空间。",makeSpaceSub:"只需要用户名和密码，不需要讲述人生故事。",authNote:"目前，你的账号和专注记录都保存在这个浏览器里——一个用来计划、专注和回顾的小空间。",
   validUsername:"用户名需为 3–24 位字母、数字或下划线。",validPassword:"密码至少 8 个字符，并包含数字。",userExists:"这个用户名已经在此浏览器中存在。",passwordMismatch:"两次输入的密码不一致。",noAccount:"此浏览器中没有找到这个用户名。",wrongPassword:"用户名或密码不正确。",logout:"退出",
   taskEmpty:"这里还没有任务。<br>先加一件你想完成的小事吧。",done:"已完成",focusCompleteBreak:"专注完成。接下来休息 {min} 分钟。",focusComplete:"专注完成，做得不错。",breakComplete:"休息结束，回到重要的事情上吧。",breakBanner:"☕ 很好，专注完成。接下来交给你的休息设置。",focusSet:"已设置 {min} 分钟专注",noPlans:"这一天还没有计划。",noHistory:"这里还没有专注记录。完成一次专注后，它会出现在这里。",sessionInPeriod:"这段时间内有 {n} 次专注",noFocusYet:"还没有专注记录",completedSession:"已完成专注",completedSessions:"已完成专注",todayChart:"今天",weekChart:"本周",monthChart:"本月",focusRecordUpdated:"专注记录已更新。",focusRecordDeleted:"专注记录已删除。",enterDateTime:"请输入日期和专注时间。",deleteConfirm:"确定删除这条专注记录吗？此操作无法撤销。",saved:"个性化设置已保存。",previousFocus:"之前的专注",importedFromEarlier:"从之前的 steno 数据导入",focusSession:"专注记录",untitled:"未命名",
   morning:"早上好",afternoon:"下午好",evening:"晚上好",yourReminder:"你的每日提醒",
@@ -523,23 +535,1477 @@ const I18N={
 };
 let currentLang=localStorage.getItem("steno_lang")||"en";
 function t(key,vars={}){let v=(I18N[currentLang]&&I18N[currentLang][key])||I18N.en[key]||key;return Object.entries(vars).reduce((x,[k,val])=>x.replaceAll("{"+k+"}",String(val)),v)}
-function applyLanguage(lang){currentLang=lang==="zh"?"zh":"en";localStorage.setItem("steno_lang",currentLang);if(typeof state!=="undefined"&&state)state.language=currentLang;document.documentElement.lang=currentLang==="zh"?"zh-CN":"en";document.querySelectorAll("[data-i18n]").forEach(el=>{el.innerHTML=t(el.dataset.i18n)});document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>el.placeholder=t(el.dataset.i18nPlaceholder));document.querySelectorAll("[data-i18n-title]").forEach(el=>el.title=t(el.dataset.i18nTitle));const a=document.getElementById("languageSelectAuth"),b=document.getElementById("languageSelectApp"),c=document.getElementById("languageSelectSettings");if(a)a.value=currentLang;if(b)b.value=currentLang;if(c)c.value=currentLang;document.title=currentLang==="zh"?"steno — 专注与笔记":"steno — focus & notes";if(typeof renderGreeting==="function")renderGreeting();if(typeof renderQuote==="function")renderQuote();if(typeof renderTasks==="function")renderTasks();if(typeof renderCalendar==="function")renderCalendar();if(typeof renderFocusHistory==="function")renderFocusHistory();if(typeof renderNotes==="function")renderNotes();if(typeof updateDynamicLabels==="function")updateDynamicLabels();}
+function applyLanguage(lang){currentLang=lang==="zh"?"zh":"en";localStorage.setItem("steno_lang",currentLang);if(typeof state!=="undefined"&&state)state.language=currentLang;document.documentElement.lang=currentLang==="zh"?"zh-CN":"en";document.querySelectorAll("[data-i18n]").forEach(el=>{el.innerHTML=t(el.dataset.i18n)});document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>el.placeholder=t(el.dataset.i18nPlaceholder));document.querySelectorAll("[data-i18n-title]").forEach(el=>el.title=t(el.dataset.i18nTitle));const a=document.getElementById("languageSelectAuth"),b=document.getElementById("languageSelectApp"),c=document.getElementById("languageSelectSettings");if(a)a.value=currentLang;if(b)b.value=currentLang;if(c)c.value=currentLang;document.title=currentLang==="zh"?"steno — 专注":"steno — focus";if(typeof renderGreeting==="function")renderGreeting();if(typeof renderQuote==="function")renderQuote();if(typeof renderTasks==="function")renderTasks();if(typeof renderCalendar==="function")renderCalendar();if(typeof renderFocusHistory==="function")renderFocusHistory();if(typeof updateDynamicLabels==="function")updateDynamicLabels();}
 function setLanguage(lang){applyLanguage(lang);if(typeof save==="function"&&currentUser){save();}}
 
 const LEGACY_STORAGE="today_focus_v2";
 const USERS_STORAGE="steno_users_v1";
 const SESSION_STORAGE="steno_session_v1";
 const quotes=[
- ["“The present moment is filled with joy and happiness. If you are attentive, you will see it.”","Thich Nhat Hanh"],
- ["“Almost everything will work again if you unplug it for a few minutes, including you.”","Anne Lamott"],
- ["“No need to hurry. No need to sparkle. No need to be anybody but oneself.”","Virginia Woolf"],
- ["“The journey of a thousand miles begins with one step.”","Lao Tzu"],
- ["“We are what we repeatedly do.”","Often attributed to Aristotle"],
- ["“Do what you can, with what you have, where you are.”","Theodore Roosevelt"],
- ["“It is never too late to be what you might have been.”","Often attributed to George Eliot"],
- ["“There is no way to happiness. Happiness is the way.”","Often attributed to Thich Nhat Hanh"],
- ["“Start where you are. Use what you have. Do what you can.”","Often attributed to Arthur Ashe"],
- ["“And now that you don't have to be perfect, you can be good.”","John Steinbeck"]
+  [
+    "“The happiness of your life depends upon the quality of your thoughts.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“Each of us lives only now, this brief instant.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“Very little is needed to make a happy life.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“If it is not right, do not do it; if it is not true, do not say it.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“You have power over your mind — not outside events. Realize this, and you will find strength.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“The best revenge is not to be like your enemy.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“The soul becomes dyed with the colour of its thoughts.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“Waste no more time arguing about what a good man should be. Be one.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“The impediment to action advances action. What stands in the way becomes the way.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“The present is all that you have.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“Remember that man lives only in the present.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“Nothing has such power to broaden the mind as the ability to investigate systematically.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“Blot out vain pomp; check impulse; quench appetite.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“To live each day as though one's last is perfection of character.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“Today I escaped from anxiety. Or no, I discarded it.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“Consider that everything is opinion, and opinion is in thy power.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“Know the joy of life by piling good deed on good deed.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“All things are changing; and thou thyself art in continuous mutation.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“We are all working together to one end.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“Nothing for me is too early or too late, which is in due time for thee.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“Depart then satisfied, for he also who releases thee is satisfied.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“The span we live is small.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“Respect the faculty that forms thy judgments.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“Never esteem anything as of advantage to you that will make you break your word.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“The happiness and unhappiness of the rational, social animal depends on what he does.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“Everything harmonizes with me, which is harmonious to thee, O Universe.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“To be, or not to be: that is the question.”",
+    "William Shakespeare, Hamlet"
+  ],
+  [
+    "“Think of the totality of all Being, and what a mite of it is yours.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“The things you think about determine the quality of your mind.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“No one can escape his own character.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“The universe is change: life is opinion.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“Look within. Within is the fountain of good.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“Do every act of your life as though it were the very last act of your life.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“The art of living is more like wrestling than dancing.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“The best way of avenging thyself is not to become like the wrong-doer.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“It is in your power whenever you shall choose to retire into yourself.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“The mind adapts and converts to its purposes the obstacle to our acting.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“Choose not to be harmed — and you won't feel harmed.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“Nothing happens to any man which he is not formed by nature to bear.”",
+    "Marcus Aurelius, Meditations"
+  ],
+  [
+    "“It's not what happens to you, but how you react to it that matters.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“Men are disturbed not by things, but by the views which they take of things.”",
+    "Epictetus, Enchiridion"
+  ],
+  [
+    "“Some things are in our control and others are not.”",
+    "Epictetus, Enchiridion"
+  ],
+  [
+    "“First say to yourself what you would be; and then do what you have to do.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“No great thing is created suddenly.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“If you wish to be a writer, write.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“It is impossible for a man to learn what he thinks he already knows.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“Don't explain your philosophy. Embody it.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“We have two ears and one mouth so that we can listen twice as much as we speak.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“Freedom is not achieved by satisfying desire, but by eliminating it.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“The key is to keep company only with people who uplift you.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“He is a wise man who does not grieve for the things which he has not.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“No man is free who is not master of himself.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“The essence of philosophy is that a man should so live that his happiness shall depend as little as possible on external things.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“If you want to improve, be content to be thought foolish and stupid.”",
+    "Epictetus, Enchiridion"
+  ],
+  [
+    "“What is the first business of one who practices philosophy? To part with self-conceit.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“The beginning of philosophy is the recognition of one's own weakness and inability.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“Curb your desire — don't set your heart on so many things and you will get what you need.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“Circumstances don't make the man, they only reveal him to himself.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“There is only one way to happiness and that is to cease worrying about things which are beyond the power of our will.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“It is difficulties that show what men are.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“The greater the difficulty, the more glory in surmounting it.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“If you want anything good, get it from within yourself.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“Don't seek to have events happen as you wish, but wish them to happen as they do happen.”",
+    "Epictetus, Enchiridion"
+  ],
+  [
+    "“You become what you give your attention to.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“When you are offended at any man's fault, turn to yourself and study your own failings.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“Practice yourself, for heaven's sake, in little things; and then proceed to greater.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“Freedom is the only worthy goal in life.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“Silence is safer than speech.”",
+    "Epictetus, Discourses"
+  ],
+  [
+    "“We suffer more often in imagination than in reality.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“The best wrestler is not he who has learned thoroughly all the tricks of the art, but he who has well and carefully trained himself.”",
+    "Seneca, On Benefits"
+  ],
+  [
+    "“It is not that we have a short time to live, but that we waste a lot of it.”",
+    "Seneca, On the Shortness of Life"
+  ],
+  [
+    "“Begin at once to live, and count each separate day as a separate life.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“While we wait for life, life passes.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“Difficulties strengthen the mind, as labor does the body.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“Luck never made a man wise.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“He who is brave is free.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“No man was ever wise by chance.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“We are more often frightened than hurt; and we suffer more in imagination than in reality.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“Associate with people who are likely to improve you.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“As long as you live, keep learning how to live.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“It is quality rather than quantity that matters.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“True wisdom consists in not departing from nature.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“If one does not know to which port one is sailing, no wind is favorable.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“A gift consists not in what is done or given, but in the intention of the giver.”",
+    "Seneca, On Benefits"
+  ],
+  [
+    "“The greatest remedy for anger is delay.”",
+    "Seneca, On Anger"
+  ],
+  [
+    "“Time discovers truth.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“The mind that is anxious about future events is miserable.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“He who spares the wicked injures the good.”",
+    "Seneca, On Anger"
+  ],
+  [
+    "“It is a rough road that leads to the heights of greatness.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“No one can be said to be poor who has enough.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“All cruelty springs from weakness.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“A great pilot can sail even when the wind is not with him.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“Every new beginning comes from some other beginning's end.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“We should give as we would receive, cheerfully, quickly, and without hesitation.”",
+    "Seneca, On Benefits"
+  ],
+  [
+    "“The greatest wealth is a poverty of desires.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“Wherever there is a human being, there is an opportunity for a kindness.”",
+    "Seneca, Letters to Lucilius"
+  ],
+  [
+    "“Life is long enough, and a sufficiently generous amount has been given to us.”",
+    "Seneca, On the Shortness of Life"
+  ],
+  [
+    "“It is more fitting for a man to laugh at life than to lament over it.”",
+    "Seneca, On the Shortness of Life"
+  ],
+  [
+    "“Simplify, simplify.”",
+    "Henry David Thoreau, Walden"
+  ],
+  [
+    "“Only that day dawns to which we are awake.”",
+    "Henry David Thoreau, Walden"
+  ],
+  [
+    "“The sun is but a morning star.”",
+    "Henry David Thoreau, Walden"
+  ],
+  [
+    "“How vain it is to sit down to write when you have not stood up to live.”",
+    "Henry David Thoreau, Journal"
+  ],
+  [
+    "“An early morning walk is a blessing for the whole day.”",
+    "Henry David Thoreau, Journal"
+  ],
+  [
+    "“It is not enough to be industrious; so are the ants. What are you industrious about?”",
+    "Henry David Thoreau, Letter"
+  ],
+  [
+    "“The cost of a thing is the amount of life which is required to be exchanged for it.”",
+    "Henry David Thoreau, Walden"
+  ],
+  [
+    "“I went to the woods because I wished to live deliberately.”",
+    "Henry David Thoreau, Walden"
+  ],
+  [
+    "“I wanted to live deep and suck out all the marrow of life.”",
+    "Henry David Thoreau, Walden"
+  ],
+  [
+    "“If a man does not keep pace with his companions, perhaps it is because he hears a different drummer.”",
+    "Henry David Thoreau, Walden"
+  ],
+  [
+    "“Let him step to the music which he hears, however measured or far away.”",
+    "Henry David Thoreau, Walden"
+  ],
+  [
+    "“Money is not required to buy one necessity of the soul.”",
+    "Henry David Thoreau, Walden"
+  ],
+  [
+    "“A living dog is better than a dead lion.”",
+    "Henry David Thoreau, Walden"
+  ],
+  [
+    "“I love a broad margin to my life.”",
+    "Henry David Thoreau, Walden"
+  ],
+  [
+    "“The mass of men lead lives of quiet desperation.”",
+    "Henry David Thoreau, Walden"
+  ],
+  [
+    "“Our life is frittered away by detail.”",
+    "Henry David Thoreau, Walden"
+  ],
+  [
+    "“If one advances confidently in the direction of his dreams, and endeavors to live the life which he has imagined, he will meet with a success unexpected in common hours.”",
+    "Henry David Thoreau, Walden"
+  ],
+  [
+    "“Rather than love, than money, than fame, give me truth.”",
+    "Henry David Thoreau, Walden"
+  ],
+  [
+    "“All good things are wild and free.”",
+    "Henry David Thoreau, Walking"
+  ],
+  [
+    "“The world is but a canvas to our imagination.”",
+    "Henry David Thoreau, A Week"
+  ],
+  [
+    "“It is never too late to give up our prejudices.”",
+    "Henry David Thoreau, Walden"
+  ],
+  [
+    "“Could a greater miracle take place than for us to look through each other's eyes for an instant?”",
+    "Henry David Thoreau, Journal"
+  ],
+  [
+    "“Things do not change; we change.”",
+    "Henry David Thoreau, Walden"
+  ],
+  [
+    "“The question is not what you look at, but what you see.”",
+    "Henry David Thoreau, Journal"
+  ],
+  [
+    "“There are a thousand hacking at the branches of evil to one who is striking at the root.”",
+    "Henry David Thoreau, A Week"
+  ],
+  [
+    "“It is in vain to dream of a wildness distant from ourselves.”",
+    "Henry David Thoreau, Journal"
+  ],
+  [
+    "“That man is the richest whose pleasures are the cheapest.”",
+    "Henry David Thoreau, Journal"
+  ],
+  [
+    "“There is no remedy for love but to love more.”",
+    "Henry David Thoreau, Journal"
+  ],
+  [
+    "“Do not hire a man who does your work for money, but him who does it for love of it.”",
+    "Henry David Thoreau, Life Without Principle"
+  ],
+  [
+    "“You must get your living by loving.”",
+    "Henry David Thoreau, Life Without Principle"
+  ],
+  [
+    "“Nothing great was ever achieved without enthusiasm.”",
+    "Ralph Waldo Emerson, Essays"
+  ],
+  [
+    "“Nothing can bring you peace but yourself.”",
+    "Ralph Waldo Emerson, Essays"
+  ],
+  [
+    "“The reward of a thing well done is having done it.”",
+    "Ralph Waldo Emerson, Society and Solitude"
+  ],
+  [
+    "“Adopt the pace of nature: her secret is patience.”",
+    "Ralph Waldo Emerson, Society and Solitude"
+  ],
+  [
+    "“The years teach much which the days never know.”",
+    "Ralph Waldo Emerson, Essays"
+  ],
+  [
+    "“The ancestor of every action is a thought.”",
+    "Ralph Waldo Emerson, Essays"
+  ],
+  [
+    "“Always do what you are afraid to do.”",
+    "Ralph Waldo Emerson, Essays"
+  ],
+  [
+    "“Life is a succession of lessons which must be lived to be understood.”",
+    "Ralph Waldo Emerson, Essays"
+  ],
+  [
+    "“The first wealth is health.”",
+    "Ralph Waldo Emerson, Essays"
+  ],
+  [
+    "“The readiness is all.”",
+    "William Shakespeare, Hamlet"
+  ],
+  [
+    "“The only way to have a friend is to be one.”",
+    "Ralph Waldo Emerson, Essays"
+  ],
+  [
+    "“Write it on your heart that every day is the best day in the year.”",
+    "Ralph Waldo Emerson, Essays"
+  ],
+  [
+    "“Nothing external to you has any power over you.”",
+    "Ralph Waldo Emerson, Essays"
+  ],
+  [
+    "“There is nothing either good or bad but thinking makes it so.”",
+    "William Shakespeare, Hamlet"
+  ],
+  [
+    "“The invariable mark of wisdom is to see the miraculous in the common.”",
+    "Ralph Waldo Emerson, Essays"
+  ],
+  [
+    "“The rest is silence.”",
+    "William Shakespeare, Hamlet"
+  ],
+  [
+    "“Good night, good night! Parting is such sweet sorrow.”",
+    "William Shakespeare, Romeo and Juliet"
+  ],
+  [
+    "“Earth laughs in flowers.”",
+    "Ralph Waldo Emerson, Hamatreya"
+  ],
+  [
+    "“O, swear not by the moon, the inconstant moon.”",
+    "William Shakespeare, Romeo and Juliet"
+  ],
+  [
+    "“A foolish consistency is the hobgoblin of little minds.”",
+    "Ralph Waldo Emerson, Essays"
+  ],
+  [
+    "“What's in a name? That which we call a rose would smell as sweet.”",
+    "William Shakespeare, Romeo and Juliet"
+  ],
+  [
+    "“Self-trust is the first secret of success.”",
+    "Ralph Waldo Emerson, Essays"
+  ],
+  [
+    "“The reward of a thing well done is to have done it.”",
+    "Ralph Waldo Emerson, Society and Solitude"
+  ],
+  [
+    "“Every artist was first an amateur.”",
+    "Ralph Waldo Emerson, Essays"
+  ],
+  [
+    "“A plague o' both your houses!”",
+    "William Shakespeare, Romeo and Juliet"
+  ],
+  [
+    "“The only gift is a portion of thyself.”",
+    "Ralph Waldo Emerson, Essays"
+  ],
+  [
+    "“Lord, what fools these mortals be!”",
+    "William Shakespeare, A Midsummer Night's Dream"
+  ],
+  [
+    "“If we shadows have offended, think but this and all is mended.”",
+    "William Shakespeare, A Midsummer Night's Dream"
+  ],
+  [
+    "“Shallow men believe in luck or in circumstance. Strong men believe in cause and effect.”",
+    "Ralph Waldo Emerson, Essays"
+  ],
+  [
+    "“We few, we happy few, we band of brothers.”",
+    "William Shakespeare, Henry V"
+  ],
+  [
+    "“To thine own self be true.”",
+    "William Shakespeare, Hamlet"
+  ],
+  [
+    "“All the world's a stage.”",
+    "William Shakespeare, As You Like It"
+  ],
+  [
+    "“Brevity is the soul of wit.”",
+    "William Shakespeare, Hamlet"
+  ],
+  [
+    "“The time of life is short.”",
+    "William Shakespeare, Henry IV, Part 1"
+  ],
+  [
+    "“We know what we are, but know not what we may be.”",
+    "William Shakespeare, Hamlet"
+  ],
+  [
+    "“This above all: to thine own self be true.”",
+    "William Shakespeare, Hamlet"
+  ],
+  [
+    "“There is nothing either good or bad, but thinking makes it so.”",
+    "William Shakespeare, Hamlet"
+  ],
+  [
+    "“The better part of valour is discretion.”",
+    "William Shakespeare, Henry IV, Part 1"
+  ],
+  [
+    "“All that glisters is not gold.”",
+    "William Shakespeare, The Merchant of Venice"
+  ],
+  [
+    "“The course of true love never did run smooth.”",
+    "William Shakespeare, A Midsummer Night's Dream"
+  ],
+  [
+    "“Love looks not with the eyes, but with the mind.”",
+    "William Shakespeare, A Midsummer Night's Dream"
+  ],
+  [
+    "“The lady doth protest too much, methinks.”",
+    "William Shakespeare, Hamlet"
+  ],
+  [
+    "“Some are born great, some achieve greatness, and some have greatness thrust upon them.”",
+    "William Shakespeare, Twelfth Night"
+  ],
+  [
+    "“We are such stuff as dreams are made on.”",
+    "William Shakespeare, The Tempest"
+  ],
+  [
+    "“What's past is prologue.”",
+    "William Shakespeare, The Tempest"
+  ],
+  [
+    "“Hell is empty and all the devils are here.”",
+    "William Shakespeare, The Tempest"
+  ],
+  [
+    "“There is a tide in the affairs of men.”",
+    "William Shakespeare, Julius Caesar"
+  ],
+  [
+    "“Cowards die many times before their deaths.”",
+    "William Shakespeare, Julius Caesar"
+  ],
+  [
+    "“Friends, Romans, countrymen, lend me your ears.”",
+    "William Shakespeare, Julius Caesar"
+  ],
+  [
+    "“The fault, dear Brutus, is not in our stars, but in ourselves.”",
+    "William Shakespeare, Julius Caesar"
+  ],
+  [
+    "“Et tu, Brute?”",
+    "William Shakespeare, Julius Caesar"
+  ],
+  [
+    "“If music be the food of love, play on.”",
+    "William Shakespeare, Twelfth Night"
+  ],
+  [
+    "“One touch of nature makes the whole world kin.”",
+    "William Shakespeare, Troilus and Cressida"
+  ],
+  [
+    "“The better part of valor is discretion.”",
+    "William Shakespeare, Henry IV, Part 1"
+  ],
+  [
+    "“Uneasy lies the head that wears a crown.”",
+    "William Shakespeare, Henry IV, Part 2"
+  ],
+  [
+    "“A fool thinks himself to be wise, but a wise man knows himself to be a fool.”",
+    "William Shakespeare, As You Like It"
+  ],
+  [
+    "“Sweet are the uses of adversity.”",
+    "William Shakespeare, As You Like It"
+  ],
+  [
+    "“All's well that ends well.”",
+    "William Shakespeare, All's Well That Ends Well"
+  ],
+  [
+    "“What's in a name? That which we call a rose by any other word would smell as sweet.”",
+    "William Shakespeare, Romeo and Juliet"
+  ],
+  [
+    "“Parting is such sweet sorrow.”",
+    "William Shakespeare, Romeo and Juliet"
+  ],
+  [
+    "“There is no charm equal to tenderness of heart.”",
+    "Jane Austen, Emma"
+  ],
+  [
+    "“I declare after all there is no enjoyment like reading!”",
+    "Jane Austen, Pride and Prejudice"
+  ],
+  [
+    "“Think only of the past as its remembrance gives you pleasure.”",
+    "Jane Austen, Pride and Prejudice"
+  ],
+  [
+    "“Angry people are not always wise.”",
+    "Jane Austen, Pride and Prejudice"
+  ],
+  [
+    "“Life seems but a quick succession of busy nothings.”",
+    "Jane Austen, Mansfield Park"
+  ],
+  [
+    "“Selfishness must always be forgiven you know, because there is no hope of a cure.”",
+    "Jane Austen, Mansfield Park"
+  ],
+  [
+    "“The earth laughs in flowers.”",
+    "Ralph Waldo Emerson, Hamatreya"
+  ],
+  [
+    "“One half of the world cannot understand the pleasures of the other.”",
+    "Jane Austen, Emma"
+  ],
+  [
+    "“A large income is the best recipe for happiness I ever heard of.”",
+    "Jane Austen, letter"
+  ],
+  [
+    "“We are all fools in love.”",
+    "Jane Austen, Pride and Prejudice"
+  ],
+  [
+    "“There is nothing like staying at home for real comfort.”",
+    "Jane Austen, Emma"
+  ],
+  [
+    "“To be fond of dancing was a certain step towards falling in love.”",
+    "Jane Austen, Pride and Prejudice"
+  ],
+  [
+    "“Vanity and pride are different things, though the words are often used synonymously.”",
+    "Jane Austen, Pride and Prejudice"
+  ],
+  [
+    "“The person, be it gentleman or lady, who has not pleasure in a good novel, must be intolerably stupid.”",
+    "Jane Austen, Northanger Abbey"
+  ],
+  [
+    "“A lady's imagination is very rapid.”",
+    "Jane Austen, Pride and Prejudice"
+  ],
+  [
+    "“Friendship is certainly the finest balm for the pangs of disappointed love.”",
+    "Jane Austen, Northanger Abbey"
+  ],
+  [
+    "“Once more unto the breach, dear friends, once more.”",
+    "William Shakespeare, Henry V"
+  ],
+  [
+    "“If I loved you less, I might be able to talk about it more.”",
+    "Jane Austen, Emma"
+  ],
+  [
+    "“Seldom, very seldom, does complete truth belong to any human disclosure.”",
+    "Jane Austen, Emma"
+  ],
+  [
+    "“Nothing is more deceitful than the appearance of humility.”",
+    "Jane Austen, Pride and Prejudice"
+  ],
+  [
+    "“It was the best of times, it was the worst of times.”",
+    "Charles Dickens, A Tale of Two Cities"
+  ],
+  [
+    "“Have a heart that never hardens, and a temper that never tires, and a touch that never hurts.”",
+    "Charles Dickens, Our Mutual Friend"
+  ],
+  [
+    "“No one is useless in this world who lightens the burdens of another.”",
+    "Charles Dickens, Our Mutual Friend"
+  ],
+  [
+    "“There is nothing in the world so irresistibly contagious as laughter and good humour.”",
+    "Charles Dickens, A Christmas Carol"
+  ],
+  [
+    "“Reflect upon your present blessings, of which every man has plenty.”",
+    "Charles Dickens, A Christmas Carol"
+  ],
+  [
+    "“I will honour Christmas in my heart, and try to keep it all the year.”",
+    "Charles Dickens, A Christmas Carol"
+  ],
+  [
+    "“A loving heart is the truest wisdom.”",
+    "Charles Dickens, A Christmas Carol"
+  ],
+  [
+    "“Procrastination is the thief of time.”",
+    "Charles Dickens, David Copperfield"
+  ],
+  [
+    "“Annual income twenty pounds, annual expenditure nineteen six, result happiness.”",
+    "Charles Dickens, David Copperfield"
+  ],
+  [
+    "“All the world's a stage, and all the men and women merely players.”",
+    "William Shakespeare, As You Like It"
+  ],
+  [
+    "“There are books of which the backs and covers are by far the best parts.”",
+    "Charles Dickens, Oliver Twist"
+  ],
+  [
+    "“Take nothing on its looks; take everything on evidence. There's no better rule.”",
+    "Charles Dickens, Great Expectations"
+  ],
+  [
+    "“A lady's imagination is very rapid; it jumps from admiration to love, from love to matrimony, in a moment.”",
+    "Jane Austen, Pride and Prejudice"
+  ],
+  [
+    "“Too much of a good thing.”",
+    "William Shakespeare, As You Like It"
+  ],
+  [
+    "“We need never be ashamed of our tears.”",
+    "Charles Dickens, Great Expectations"
+  ],
+  [
+    "“The whole difference between construction and creation is exactly this: that a thing constructed can only be loved after it is constructed; but a thing created is loved before it exists.”",
+    "Charles Dickens, Our Mutual Friend"
+  ],
+  [
+    "“It is a fair, even-handed, noble adjustment of things.”",
+    "Charles Dickens, A Tale of Two Cities"
+  ],
+  [
+    "“No space of regret can make amends for one life's opportunity misused.”",
+    "Charles Dickens, A Christmas Carol"
+  ],
+  [
+    "“Minds, like bodies, will often fall into a pimpled, wrinkled state from mere habit.”",
+    "Charles Dickens, The Mystery of Edwin Drood"
+  ],
+  [
+    "“There are dark shadows on the earth, but its lights are brighter in the contrast.”",
+    "Charles Dickens, The Pickwick Papers"
+  ],
+  [
+    "“The wheel is come full circle.”",
+    "William Shakespeare, King Lear"
+  ],
+  [
+    "“What do we live for, if it is not to make life less difficult for each other?”",
+    "George Eliot, Middlemarch"
+  ],
+  [
+    "“Nothing will come of nothing.”",
+    "William Shakespeare, King Lear"
+  ],
+  [
+    "“The strongest principle of growth lies in human choice.”",
+    "George Eliot, Daniel Deronda"
+  ],
+  [
+    "“O may I join the choir invisible of those immortal dead who live again in minds made better by their presence.”",
+    "George Eliot, O May I Join the Choir Invisible"
+  ],
+  [
+    "“Blessed is the man who, having nothing to say, abstains from giving us wordy evidence of the fact.”",
+    "George Eliot, Impressions of Theophrastus Such"
+  ],
+  [
+    "“It is always fatal to have music or poetry interrupted.”",
+    "George Eliot, Middlemarch"
+  ],
+  [
+    "“What novelty is worth that sweet monotony where everything is known and loved because it is known?”",
+    "George Eliot, Middlemarch"
+  ],
+  [
+    "“How sharper than a serpent's tooth it is to have a thankless child!”",
+    "William Shakespeare, King Lear"
+  ],
+  [
+    "“The golden moments in the stream of life rush past us, and we see nothing but sand.”",
+    "George Eliot, The Mill on the Floss"
+  ],
+  [
+    "“There is no doing without a certain degree of confidence.”",
+    "Jane Austen, Sense and Sensibility"
+  ],
+  [
+    "“Our deeds are like children that are born to us; they live and act apart from our own will.”",
+    "George Eliot, Romola"
+  ],
+  [
+    "“A difference of taste in jokes is a great strain on the affections.”",
+    "George Eliot, The Mill on the Floss"
+  ],
+  [
+    "“We hand folks over to God's mercy, and show none ourselves.”",
+    "George Eliot, Adam Bede"
+  ],
+  [
+    "“The reward of one duty is the power to fulfil another.”",
+    "George Eliot, Romola"
+  ],
+  [
+    "“I have been used to consider poetry as the FOOD of love.”",
+    "Jane Austen, Pride and Prejudice"
+  ],
+  [
+    "“To love oneself is the beginning of a life-long romance.”",
+    "Oscar Wilde, An Ideal Husband"
+  ],
+  [
+    "“We are all in the gutter, but some of us are looking at the stars.”",
+    "Oscar Wilde, Lady Windermere's Fan"
+  ],
+  [
+    "“Experience is simply the name we give our mistakes.”",
+    "Oscar Wilde, Lady Windermere's Fan"
+  ],
+  [
+    "“I am a part of all that I have met.”",
+    "Alfred, Lord Tennyson, Ulysses"
+  ],
+  [
+    "“The truth is rarely pure and never simple.”",
+    "Oscar Wilde, The Importance of Being Earnest"
+  ],
+  [
+    "“I can resist everything except temptation.”",
+    "Oscar Wilde, Lady Windermere's Fan"
+  ],
+  [
+    "“The only way to get rid of a temptation is to yield to it.”",
+    "Oscar Wilde, The Picture of Dorian Gray"
+  ],
+  [
+    "“A cynic is a man who knows the price of everything and the value of nothing.”",
+    "Oscar Wilde, Lady Windermere's Fan"
+  ],
+  [
+    "“We are each our own devil, and we make this world our hell.”",
+    "Oscar Wilde, The Picture of Dorian Gray"
+  ],
+  [
+    "“The mystery of love is greater than the mystery of death.”",
+    "Oscar Wilde, Salome"
+  ],
+  [
+    "“To strive, to seek, to find, and not to yield.”",
+    "Alfred, Lord Tennyson, Ulysses"
+  ],
+  [
+    "“Life is far too important a thing ever to talk seriously about.”",
+    "Oscar Wilde, The Importance of Being Earnest"
+  ],
+  [
+    "“Nowadays people know the price of everything and the value of nothing.”",
+    "Oscar Wilde, The Picture of Dorian Gray"
+  ],
+  [
+    "“A man who does not think for himself does not think at all.”",
+    "Oscar Wilde, The Soul of Man under Socialism"
+  ],
+  [
+    "“Disobedience was man's original virtue.”",
+    "Oscar Wilde, The Soul of Man under Socialism"
+  ],
+  [
+    "“Selfishness is not living as one wishes to live, it is asking others to live as one wishes to live.”",
+    "Oscar Wilde, The Soul of Man under Socialism"
+  ],
+  [
+    "“Knowledge comes, but wisdom lingers.”",
+    "Alfred, Lord Tennyson, Locksley Hall"
+  ],
+  [
+    "“Theirs not to reason why, theirs but to do and die.”",
+    "Alfred, Lord Tennyson, The Charge of the Light Brigade"
+  ],
+  [
+    "“Life imitates art far more than art imitates life.”",
+    "Oscar Wilde, The Decay of Lying"
+  ],
+  [
+    "“Curiouser and curiouser!”",
+    "Lewis Carroll, Alice's Adventures in Wonderland"
+  ],
+  [
+    "“We're all mad here.”",
+    "Lewis Carroll, Alice's Adventures in Wonderland"
+  ],
+  [
+    "“Begin at the beginning and go on till you come to the end: then stop.”",
+    "Lewis Carroll, Alice's Adventures in Wonderland"
+  ],
+  [
+    "“It's no use going back to yesterday, because I was a different person then.”",
+    "Lewis Carroll, Alice's Adventures in Wonderland"
+  ],
+  [
+    "“Who in the world am I? Ah, that's the great puzzle.”",
+    "Lewis Carroll, Alice's Adventures in Wonderland"
+  ],
+  [
+    "“One can't believe impossible things.”",
+    "Lewis Carroll, Through the Looking-Glass"
+  ],
+  [
+    "“Why, sometimes I've believed as many as six impossible things before breakfast.”",
+    "Lewis Carroll, Through the Looking-Glass"
+  ],
+  [
+    "“It's a poor sort of memory that only works backwards.”",
+    "Lewis Carroll, Through the Looking-Glass"
+  ],
+  [
+    "“The time has come to talk of many things.”",
+    "Lewis Carroll, Through the Looking-Glass"
+  ],
+  [
+    "“There is no happiness like being loved by your fellow-creatures, and feeling that your presence is an addition to their comfort.”",
+    "Jane Austen, Emma"
+  ],
+  [
+    "“Take care of the sense, and the sounds will take care of themselves.”",
+    "Lewis Carroll, Through the Looking-Glass"
+  ],
+  [
+    "“Contrariwise, if it was so, it might be; and if it were so, it would be.”",
+    "Lewis Carroll, Through the Looking-Glass"
+  ],
+  [
+    "“The rule is, jam tomorrow and jam yesterday — but never jam today.”",
+    "Lewis Carroll, Through the Looking-Glass"
+  ],
+  [
+    "“The old order changeth, yielding place to new.”",
+    "Alfred, Lord Tennyson, Idylls of the King"
+  ],
+  [
+    "“You may as well go back to your old father now.”",
+    "Lewis Carroll, Alice's Adventures in Wonderland"
+  ],
+  [
+    "“I celebrate myself, and sing myself.”",
+    "Walt Whitman, Song of Myself"
+  ],
+  [
+    "“I am large, I contain multitudes.”",
+    "Walt Whitman, Song of Myself"
+  ],
+  [
+    "“I see that I have been a while always, and shall always be.”",
+    "Walt Whitman, Song of Myself"
+  ],
+  [
+    "“Do anything, but let it produce joy.”",
+    "Walt Whitman, Song of Myself"
+  ],
+  [
+    "“Happiness, not in another place but this place, not in another hour but this hour.”",
+    "Walt Whitman, Leaves of Grass"
+  ],
+  [
+    "“There is no end of people willing to hear you.”",
+    "Jane Austen, Mansfield Park"
+  ],
+  [
+    "“Re-examine all you have been told at school or church or in any book, dismiss that which insults your own soul.”",
+    "Walt Whitman, Leaves of Grass"
+  ],
+  [
+    "“Resist much, obey little.”",
+    "Walt Whitman, Leaves of Grass"
+  ],
+  [
+    "“I hear America singing.”",
+    "Walt Whitman, Leaves of Grass"
+  ],
+  [
+    "“Now I see the secret of the making of the best persons.”",
+    "Walt Whitman, Leaves of Grass"
+  ],
+  [
+    "“The future is no more uncertain than the present.”",
+    "Walt Whitman, Leaves of Grass"
+  ],
+  [
+    "“The art of art, the glory of expression and the sunshine of the light of letters, is simplicity.”",
+    "Walt Whitman, Democratic Vistas"
+  ],
+  [
+    "“Every hour of every day is an unspeakably perfect miracle.”",
+    "Walt Whitman, Leaves of Grass"
+  ],
+  [
+    "“Henceforth I ask not good-fortune — I myself am good-fortune.”",
+    "Walt Whitman, Song of Myself"
+  ],
+  [
+    "“I exist as I am, that is enough.”",
+    "Walt Whitman, Song of Myself"
+  ],
+  [
+    "“All goes onward and outward, nothing collapses.”",
+    "Walt Whitman, Song of Myself"
+  ],
+  [
+    "“I swear to you, there are divine things more beautiful than words can tell.”",
+    "Walt Whitman, Song of Myself"
+  ],
+  [
+    "“I sound my barbaric yawp over the roofs of the world.”",
+    "Walt Whitman, Song of Myself"
+  ],
+  [
+    "“Do I contradict myself? Very well then I contradict myself.”",
+    "Walt Whitman, Song of Myself"
+  ],
+  [
+    "“I lean and loafe at my ease observing a spear of summer grass.”",
+    "Walt Whitman, Song of Myself"
+  ],
+  [
+    "“Lost time is never found again.”",
+    "Benjamin Franklin, Poor Richard's Almanack"
+  ],
+  [
+    "“Theirs not to make reply, theirs not to reason why, theirs but to do and die.”",
+    "Alfred, Lord Tennyson, The Charge of the Light Brigade"
+  ],
+  [
+    "“Well done is better than well said.”",
+    "Benjamin Franklin, Poor Richard's Almanack"
+  ],
+  [
+    "“The glory of the world is but a passing shadow.”",
+    "John Milton, Paradise Lost"
+  ],
+  [
+    "“Diligence is the mother of good luck.”",
+    "Benjamin Franklin, Poor Richard's Almanack"
+  ],
+  [
+    "“He that can have patience can have what he will.”",
+    "Benjamin Franklin, Poor Richard's Almanack"
+  ],
+  [
+    "“The mind is its own place, and in itself can make a heaven of hell, a hell of heaven.”",
+    "John Milton, Paradise Lost"
+  ],
+  [
+    "“Long is the way and hard, that out of Hell leads up to light.”",
+    "John Milton, Paradise Lost"
+  ],
+  [
+    "“Better to reign in Hell, than serve in Heaven.”",
+    "John Milton, Paradise Lost"
+  ],
+  [
+    "“He that waits upon fortune is never sure of a dinner.”",
+    "Benjamin Franklin, Poor Richard's Almanack"
+  ],
+  [
+    "“Awake, arise, or be forever fallen!”",
+    "John Milton, Paradise Lost"
+  ],
+  [
+    "“Guests, like fish, begin to smell after three days.”",
+    "Benjamin Franklin, Poor Richard's Almanack"
+  ],
+  [
+    "“A penny saved is a penny earned.”",
+    "Benjamin Franklin, Poor Richard's Almanack"
+  ],
+  [
+    "“Three may keep a secret, if two of them are dead.”",
+    "Benjamin Franklin, Poor Richard's Almanack"
+  ],
+  [
+    "“The childhood shows the man, as morning shows the day.”",
+    "John Milton, Paradise Regained"
+  ],
+  [
+    "“They also serve who only stand and wait.”",
+    "John Milton, Sonnet XIX"
+  ],
+  [
+    "“You may delay, but time will not.”",
+    "Benjamin Franklin, Poor Richard's Almanack"
+  ],
+  [
+    "“If you would have a faithful servant, and one that you like, serve yourself.”",
+    "Benjamin Franklin, Poor Richard's Almanack"
+  ],
+  [
+    "“The doors of wisdom are never shut.”",
+    "Benjamin Franklin, Poor Richard's Almanack"
+  ],
+  [
+    "“He that drinks fast, pays slow.”",
+    "Benjamin Franklin, Poor Richard's Almanack"
+  ],
+  [
+    "“A place for everything, everything in its place.”",
+    "Benjamin Franklin, Poor Richard's Almanack"
+  ],
+  [
+    "“He that rises late must trot all day.”",
+    "Benjamin Franklin, Poor Richard's Almanack"
+  ],
+  [
+    "“The mind is its own place.”",
+    "John Milton, Paradise Lost"
+  ],
+  [
+    "“A little learning is a dangerous thing.”",
+    "Alexander Pope, An Essay on Criticism"
+  ],
+  [
+    "“The absent are never without fault, nor the present without excuse.”",
+    "Benjamin Franklin, Poor Richard's Almanack"
+  ],
+  [
+    "“To err is human; to forgive, divine.”",
+    "Alexander Pope, An Essay on Criticism"
+  ],
+  [
+    "“Fools rush in where angels fear to tread.”",
+    "Alexander Pope, An Essay on Criticism"
+  ],
+  [
+    "“Hope springs eternal in the human breast.”",
+    "Alexander Pope, An Essay on Man"
+  ],
+  [
+    "“Order is Heaven's first law.”",
+    "Alexander Pope, An Essay on Man"
+  ],
+  [
+    "“Act well your part; there all the honour lies.”",
+    "Alexander Pope, An Essay on Man"
+  ],
+  [
+    "“Know then thyself, presume not God to scan.”",
+    "Alexander Pope, An Essay on Man"
+  ],
+  [
+    "“Those who deny freedom to others deserve it not for themselves.”",
+    "Abraham Lincoln, letter"
+  ],
+  [
+    "“The proper study of mankind is man.”",
+    "Alexander Pope, An Essay on Man"
+  ],
+  [
+    "“Whatever is, is right.”",
+    "Alexander Pope, An Essay on Man"
+  ],
+  [
+    "“A wit's a feather, and a chief a rod.”",
+    "Alexander Pope, An Essay on Criticism"
+  ],
+  [
+    "“Beauty draws us with a single hair.”",
+    "Alexander Pope, Rape of the Lock"
+  ],
+  [
+    "“The proper study of mankind is Man.”",
+    "Alexander Pope, An Essay on Man"
+  ],
+  [
+    "“A house divided against itself cannot stand.”",
+    "Abraham Lincoln, speech"
+  ],
+  [
+    "“What some call health, if purchased by perpetual anxiety about diet, isn't much better than tedious disease.”",
+    "Alexander Pope, Moral Essays"
+  ],
+  [
+    "“Reading furnishes the mind only with materials of knowledge; it is thinking that makes what we read ours.”",
+    "John Locke, An Essay Concerning Human Understanding"
+  ],
+  [
+    "“No man is good enough to govern another man without that other's consent.”",
+    "Abraham Lincoln, speech"
+  ],
+  [
+    "“No man's knowledge here can go beyond his experience.”",
+    "John Locke, An Essay Concerning Human Understanding"
+  ],
+  [
+    "“The actions of men are the best interpreters of their thoughts.”",
+    "John Locke, An Essay Concerning Human Understanding"
+  ],
+  [
+    "“Important principles may, and must, be inflexible.”",
+    "Abraham Lincoln, speech"
+  ],
+  [
+    "“New opinions are always suspected, and usually opposed, without any other reason but because they are not already common.”",
+    "John Locke, An Essay Concerning Human Understanding"
+  ],
+  [
+    "“The improvement of understanding is for two ends: first, our own increase of knowledge; secondly, to enable us to deliver that knowledge to others.”",
+    "John Locke, An Essay Concerning Human Understanding"
+  ],
+  [
+    "“Sunset and evening star, and one clear call for me!”",
+    "Alfred, Lord Tennyson, Crossing the Bar"
+  ],
+  [
+    "“Twilight and evening bell, and after that the dark!”",
+    "Alfred, Lord Tennyson, Crossing the Bar"
+  ],
+  [
+    "“I am become a name; for always roaming with a hungry heart.”",
+    "Alfred, Lord Tennyson, Ulysses"
+  ],
+  [
+    "“Made weak by time and fate, but strong in will.”",
+    "Alfred, Lord Tennyson, Ulysses"
+  ],
+  [
+    "“How dull it is to pause, to make an end.”",
+    "Alfred, Lord Tennyson, Ulysses"
+  ],
+  [
+    "“The mind is its own place, and in itself can make a heaven of hell.”",
+    "John Milton, Paradise Lost"
+  ],
+  [
+    "“What we hope ever to do with ease, we must learn first to do with diligence.”",
+    "Samuel Johnson, Rasselas"
+  ],
+  [
+    "“The only fence against the world is a thorough knowledge of it.”",
+    "John Locke, Some Thoughts Concerning Education"
+  ],
+  [
+    "“Fortitude is the guard and support of the other virtues.”",
+    "John Locke, An Essay Concerning Human Understanding"
+  ],
+  [
+    "“The end of law is not to abolish or restrain, but to preserve and enlarge freedom.”",
+    "John Locke, Second Treatise of Government"
+  ],
+  [
+    "“Where there is no property there is no injustice.”",
+    "John Locke, Second Treatise of Government"
+  ],
+  [
+    "“Parents wonder why the streams are bitter, when they themselves have poisoned the fountain.”",
+    "John Locke, Some Thoughts Concerning Education"
+  ],
+  [
+    "“The only defence against the world is a thorough knowledge of it.”",
+    "John Locke, Some Thoughts Concerning Education"
+  ],
+  [
+    "“Integrity without knowledge is weak and useless, and knowledge without integrity is dangerous and dreadful.”",
+    "Samuel Johnson, Rasselas"
+  ],
+  [
+    "“It is not enough to have a good mind; the important thing is to use it well.”",
+    "René Descartes, Discourse on the Method"
+  ],
+  [
+    "“Divide each difficulty into as many parts as is feasible and necessary to resolve it.”",
+    "René Descartes, Discourse on the Method"
+  ],
+  [
+    "“The greatest minds are capable of the greatest vices as well as of the greatest virtues.”",
+    "René Descartes, Discourse on Method"
+  ],
+  [
+    "“I think, therefore I am.”",
+    "René Descartes, Discourse on the Method"
+  ],
+  [
+    "“It is one thing to show a man that he is in an error, and another to put him in possession of truth.”",
+    "John Locke, An Essay Concerning Human Understanding"
+  ],
+  [
+    "“Let a man take time enough for the most trivial deed, though it be but the paring of his nails.”",
+    "Henry David Thoreau, Pearls of Thought"
+  ],
+  [
+    "“The present hour is always wealthiest when it is poorer than the future ones.”",
+    "Henry David Thoreau, Pearls of Thought"
+  ],
+  [
+    "“You cannot serve two masters. It requires more than a day's devotion to know and to possess the wealth of a day.”",
+    "Henry David Thoreau, Life Without Principle"
+  ]
 ];
 
 let currentUser=localStorage.getItem(SESSION_STORAGE)||"";
@@ -550,7 +2016,7 @@ let state=currentUser && users[currentUser] ? users[currentUser].data : {
 // Focus is stored by calendar date so the planner can show historical totals.
 state.language=state.language||currentLang;currentLang=state.language;localStorage.setItem("steno_lang",currentLang);
 state.focusByDate=state.focusByDate||{};
-state.focusSessions=Array.isArray(state.focusSessions)?state.focusSessions:[];
+state.focusSessions=Array.isArray(state.focusSessions)?state.focusSessions.filter(s=>Number(s?.durationSeconds||0)>60):[];
 if(typeof state.focusSeconds!=="number")state.focusSeconds=0;
 // Convert existing per-day totals into editable history entries when this version is first opened.
 if(!state.focusSessions.length && Object.keys(state.focusByDate).length){
@@ -657,7 +2123,17 @@ function focusForDate(date){return Number(state.focusByDate?.[date]||0)}
 function rebuildFocusByDate(){state.focusByDate={};for(const s of (state.focusSessions||[])){if(!s.date)continue;state.focusByDate[s.date]=(state.focusByDate[s.date]||0)+Number(s.durationSeconds||0)}state.focusSeconds=Object.values(state.focusByDate).reduce((a,b)=>a+Number(b||0),0)}
 function addFocusSeconds(date,seconds){state.focusByDate[date]=(focusForDate(date)+seconds);state.focusSeconds=(state.focusSeconds||0)+seconds}
 function beginFocusSession(){const now=new Date();const t=currentId?taskList(todayKey()).find(x=>x.id===currentId):null;activeSession={id:"session-"+Date.now(),date:todayKey(),durationSeconds:0,taskId:t?.id||null,taskName:t?.name||"Focus session",note:"",startedAt:now.toISOString(),endedAt:null}}
-function finishFocusSession(){if(!activeSession||activeSession.durationSeconds<=0){activeSession=null;return}activeSession.endedAt=new Date().toISOString();state.focusSessions.unshift(activeSession);activeSession=null;save();renderFocusHistory();renderTasks();renderCalendar();if(selectedDate===todayKey())renderDayPanel()}
+function finishFocusSession(){
+ if(!activeSession)return;
+ const session=activeSession;
+ activeSession=null;
+ if(Number(session.durationSeconds||0)<=60){save();return;}
+ session.endedAt=new Date().toISOString();
+ state.focusSessions.unshift(session);
+ if(session.taskId){const task=taskList(session.date).find(x=>x.id===session.taskId);if(task)task.seconds=(Number(task.seconds)||0)+Number(session.durationSeconds||0);}
+ rebuildFocusByDate();
+ save();renderFocusHistory();renderTasks();renderCalendar();if(selectedDate===todayKey())renderDayPanel();
+}
 function formatClock(sec){const h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=sec%60;return h?`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`:`${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`}
 function updateDynamicLabels(){
  const start=document.getElementById("startBtn");if(start&&!running)start.textContent=t("start");
@@ -691,7 +2167,7 @@ function renderQuote(){
    return;
  }
  const start=new Date(new Date().getFullYear(),0,0), now=new Date(), day=Math.floor((now-start)/86400000);
- const q=quotes[day%quotes.length];
+ const q=quotes[(day-1)%quotes.length];
  document.getElementById("quoteText").textContent=q[0];
  document.getElementById("quoteAuthor").textContent="— "+q[1];
 }
@@ -753,15 +2229,13 @@ function toggleTimer(){
 function tick(){
  if(!activeSession)beginFocusSession();
  activeSession.durationSeconds++;
- const t=currentId?taskList(todayKey()).find(x=>x.id===currentId):null;if(t)t.seconds++;
- addFocusSeconds(todayKey(),1);
  if(modeMinutes>0){remaining--;if(remaining<=0){remaining=0;finishFocus();return}}
  save();updateTimer();renderTasks();if(selectedDate===todayKey())renderDayPanel();
 }
-function pauseTimer(){running=false;clearInterval(interval);interval=null;document.getElementById("startBtn").textContent=t("start");finishFocusSession()}
+function pauseTimer(){running=false;clearInterval(interval);interval=null;document.getElementById("startBtn").textContent=t("start")}
 function resetTimer(){if(running)pauseTimer();else activeSession=null;breakMode=false;document.getElementById("breakBanner").classList.remove("show");remaining=modeMinutes*60;updateTimer()}
 function finishFocus(){
- pauseTimer();playBell();
+ pauseTimer();finishFocusSession();playBell();
  if(state.breakEnabled){
    breakMode=true;
    document.getElementById("breakBanner").classList.add("show");document.getElementById("breakBanner").textContent=t("breakBanner");
@@ -822,8 +2296,8 @@ function toggleDay(id){const t=taskList(selectedDate).find(x=>x.id===id);if(t)t.
 function deleteDay(id){state.tasks[selectedDate]=taskList(selectedDate).filter(x=>x.id!==id);save();renderCalendar();renderTasks()}
 
 function setHistoryRange(range){
- historyRange=range;
- ["today","week","month"].forEach(r=>document.getElementById("range"+r.charAt(0).toUpperCase()+r.slice(1))?.classList.toggle("active",r===range));
+ historyRange=(range==="month")?"month":"week";
+ ["week","month"].forEach(r=>document.getElementById("range"+r.charAt(0).toUpperCase()+r.slice(1))?.classList.toggle("active",r===historyRange));
  renderHistoryStats();
 }
 function dateKeyLocal(d){return keyDate(d)}
@@ -866,9 +2340,6 @@ function renderHistoryStats(){
  const box=document.getElementById("focusTrendBars");if(!box)return;
  const max=Math.max(...Object.values(totals),1);
  let chartDates=dates;
- if(historyRange==="month" && dates.length>14){
-  chartDates=dates.filter((_,i)=>i%2===0||i===dates.length-1);
- }
  box.innerHTML=chartDates.map(d=>{
   const secs=totals[d]||0,pct=secs?Math.max(4,Math.round(secs/max*100)):2;
   const dt=new Date(d+"T12:00:00");
@@ -949,9 +2420,9 @@ let currentNoteId=null;
 function switchPage(page){
  document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
- document.getElementById(page==="focus"?"focusPage":"notesPage").classList.add("active");
- document.getElementById(page==="focus"?"focusTab":"notesTab").classList.add("active");
- if(page==="notes")renderNotes();else renderFocusHistory();
+ document.getElementById("focusPage").classList.add("active");
+ document.getElementById("focusTab").classList.add("active");
+ renderFocusHistory();
 }
 function noteList(){if(!state.notes)state.notes={};return state.notes}
 function newNote(){
@@ -984,7 +2455,7 @@ function applyBreakCustom(){
  state.breakEnabled=true;state.breakMinutes=min;save();toast(`Break: ${min} minutes`);
 }
 
-applyLanguage(currentLang);applyTheme();renderGreeting();renderQuote();renderTasks();renderCalendar();renderFocusHistory();updateTimer();renderNotes();if(currentUser&&users[currentUser])afterLogin();else showAuth("login");
+applyLanguage(currentLang);applyTheme();renderGreeting();renderQuote();renderTasks();renderCalendar();renderFocusHistory();updateTimer();if(currentUser&&users[currentUser])afterLogin();else showAuth("login");
 </script>
 </body>
 </html>
