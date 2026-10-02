@@ -223,9 +223,10 @@ body{background:var(--bg)}
 .grid > .card .planner-body{flex:1;min-height:0}
 
 
-#authScreen{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:24px}
-.auth-card{width:min(390px,100%);background:var(--card);border:1px solid var(--line);border-radius:26px;padding:30px;box-shadow:var(--shadow)}
-.auth-brand{font-size:22px;font-weight:800;letter-spacing:.12em;color:var(--accent);text-transform:lowercase;margin-bottom:6px}
+#authScreen{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:32px}
+.auth-layout{width:min(900px,100%);display:grid;grid-template-columns:minmax(340px,390px) minmax(360px,460px);gap:18px;align-items:stretch}
+.auth-card{width:auto;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:30px;box-shadow:var(--shadow)}
+.auth-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}.language-select{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:9px;padding:6px 9px;font-size:11px;cursor:pointer}.auth-brand{font-size:22px;font-weight:800;letter-spacing:.12em;color:var(--accent);text-transform:lowercase;margin-bottom:6px}
 .auth-card h2{margin:0 0 7px;font-size:24px}
 .auth-sub{color:var(--muted);font-size:13px;line-height:1.5;margin-bottom:20px}
 .auth-tabs{display:flex;gap:5px;background:var(--bg);padding:4px;border-radius:12px;margin-bottom:18px}
@@ -237,6 +238,16 @@ body{background:var(--bg)}
 .auth-field input:focus{border-color:var(--accent)}
 .auth-error{min-height:18px;color:#b24f67;font-size:12px;margin:8px 0}
 .auth-note{font-size:10px;color:var(--muted);line-height:1.45;margin-top:12px}
+.auth-preview{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:24px;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:center}.preview-app{border:1px solid var(--line);background:var(--surface);border-radius:18px;padding:12px}.preview-tabs{display:flex;gap:5px;margin-bottom:10px}.preview-tab{flex:1;border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:9px;padding:7px;font-size:11px;font-weight:650}.preview-tab.active{color:var(--accent);border-color:var(--accent);background:var(--card)}.preview-screen{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:12px}.preview-screen-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.preview-screen-title{font-size:12px;font-weight:700}.preview-timer{font-size:28px;font-weight:750;letter-spacing:.04em;margin:7px 0 9px}.preview-task{font-size:11px;color:var(--muted);margin-bottom:10px}.preview-progress{height:6px;background:var(--line);border-radius:99px;overflow:hidden}.preview-progress span{display:block;width:58%;height:100%;background:var(--accent);border-radius:99px}.preview-notebook-line{font-size:11px;padding:8px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}.preview-notebook-line:last-child{border-bottom:0}.preview-notebook-line span:last-child{color:var(--accent);font-weight:650}
+.auth-preview-kicker{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:750;margin-bottom:8px}
+.auth-preview h3{font-size:20px;margin:0 0 7px}
+.auth-preview p{font-size:12px;line-height:1.55;color:var(--muted);margin:0 0 16px}
+.preview-note{border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:15px}
+.preview-note-title{font-size:14px;font-weight:650;margin-bottom:9px}
+.preview-line{font-size:11px;color:var(--muted);padding:7px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px}
+.preview-line span:last-child{color:var(--accent);font-weight:650;white-space:nowrap}
+.preview-caption{font-size:10px;color:var(--muted);margin-top:12px}
+@media(max-width:760px){#authScreen{padding:20px;overflow:auto}.auth-layout{grid-template-columns:1fr;max-width:390px}.auth-preview{display:none}}
 .account-chip{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:7px}
 .logout-btn{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:11px}
 
@@ -245,29 +256,56 @@ body{background:var(--bg)}
 <body>
 
 <div id="authScreen">
-  <div class="auth-card">
-    <div class="auth-brand">steno</div>
-    <h2 id="authTitle">Welcome back.</h2>
-    <div class="auth-sub" id="authSub">Your little focus space, saved under your own account.</div>
-    <div class="auth-tabs">
-      <button class="auth-tab active" id="loginTab" onclick="showAuth('login')">Log in</button>
-      <button class="auth-tab" id="registerTab" onclick="showAuth('register')">Create account</button>
+  <div class="auth-layout">
+    <div class="auth-card">
+      <div class="auth-top"><div class="auth-brand">steno</div><select id="languageSelectAuth" class="language-select" onchange="setLanguage(this.value)"><option value="en">English</option><option value="zh">中文</option></select></div>
+      <h2 id="authTitle">Welcome back.</h2>
+      <div class="auth-sub" id="authSub">Your little focus space, saved under your own account.</div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="loginTab" onclick="showAuth('login')" data-i18n="login">Log in</button>
+        <button class="auth-tab" id="registerTab" onclick="showAuth('register')" data-i18n="createAccount">Create account</button>
+      </div>
+      <div class="auth-field">
+        <label data-i18n="username">Username</label>
+        <input id="authUsername" autocomplete="username" maxlength="24" data-i18n-placeholder="enterUsername" placeholder="Enter your username">
+      </div>
+      <div class="auth-field">
+        <label data-i18n="password">Password</label>
+        <input id="authPassword" type="password" autocomplete="current-password" data-i18n-placeholder="passwordHint" placeholder="At least 8 characters">
+      </div>
+      <div class="auth-field" id="authConfirmWrap" style="display:none">
+        <label data-i18n="confirmPassword">Confirm password</label>
+        <input id="authConfirm" type="password" autocomplete="new-password" data-i18n-placeholder="typeAgain" placeholder="Type it again">
+      </div>
+      <div class="auth-error" id="authError"></div>
+      <button class="primary" style="width:100%" onclick="submitAuth()" id="authSubmit">Log in</button>
+      <div class="auth-note" id="authNote" data-i18n="authNote">Your account, notes, and focus history stay in this browser for now — a simple space to plan, focus, and reflect.</div>
     </div>
-    <div class="auth-field">
-      <label>Username</label>
-      <input id="authUsername" autocomplete="username" maxlength="24" placeholder="e.g. Hazel">
+
+    <div class="auth-preview">
+      <div class="auth-preview-kicker" data-i18n="insideSteno">Inside steno</div>
+      <h3 data-i18n="focusAndNotebook">Focus + Notebook.</h3>
+      <p data-i18n="previewIntro">Two small tools in one quiet space: focus on what matters, then keep the thoughts that come with it.</p>
+      <div class="preview-app">
+        <div class="preview-tabs">
+          <button class="preview-tab active" data-i18n="focus">Focus</button>
+          <button class="preview-tab" data-i18n="notebook">Notebook</button>
+        </div>
+        <div class="preview-screen">
+          <div class="preview-screen-head"><div class="preview-screen-title" data-i18n="currentFocus">CURRENT FOCUS</div><span class="small">25m</span></div>
+          <div class="preview-task" data-i18n="previewTask">Read and annotate today's article</div>
+          <div class="preview-timer">18:42</div>
+          <div class="preview-progress"><span></span></div>
+        </div>
+        <div class="preview-screen" style="margin-top:8px">
+          <div class="preview-screen-head"><div class="preview-screen-title" data-i18n="notebook">NOTEBOOK</div><span class="small">3</span></div>
+          <div class="preview-notebook-line"><span data-i18n="researchIdeas">Research ideas</span><span data-i18n="note">Note</span></div>
+          <div class="preview-notebook-line"><span data-i18n="quickThought">Quick thought</span><span data-i18n="note">Note</span></div>
+          <div class="preview-notebook-line"><span data-i18n="focusReflection">Focus reflection</span><span data-i18n="twentyFiveMin">25 min</span></div>
+        </div>
+      </div>
+      <div class="preview-caption" data-i18n="previewCaption">Plan → focus → write it down → come back tomorrow.</div>
     </div>
-    <div class="auth-field">
-      <label>Password</label>
-      <input id="authPassword" type="password" autocomplete="current-password" placeholder="At least 8 characters">
-    </div>
-    <div class="auth-field" id="authConfirmWrap" style="display:none">
-      <label>Confirm password</label>
-      <input id="authConfirm" type="password" autocomplete="new-password" placeholder="Type it again">
-    </div>
-    <div class="auth-error" id="authError"></div>
-    <button class="primary" style="width:100%" onclick="submitAuth()" id="authSubmit">Log in</button>
-    <div class="auth-note">For this simple prototype, accounts are stored in this browser. Passwords are stored as hashes, not plain text. A real multi-device version would need a secure backend.</div>
   </div>
 </div>
 
@@ -279,7 +317,7 @@ body{background:var(--bg)}
     <div class="date" id="date"></div>
   </div>
   <div class="header-actions">
-    <div class="account-chip" id="accountChip"></div><button class="icon-btn" onclick="openSettings()">⚙ Personalize</button>
+    <div class="account-chip" id="accountChip"></div><select id="languageSelectApp" class="language-select" onchange="setLanguage(this.value)"><option value="en">EN</option><option value="zh">中</option></select><button class="icon-btn" onclick="openSettings()">⚙ <span data-i18n="personalize">Personalize</span></button>
   </div>
 </header>
 
@@ -291,64 +329,64 @@ body{background:var(--bg)}
 <div id="breakBanner" class="break-banner">☕ Nice. Focus done. Your break settings are doing their thing.</div>
 
 <div class="tabbar">
-  <button class="tab active" id="focusTab" onclick="switchPage('focus')">Focus</button>
-  <button class="tab" id="notesTab" onclick="switchPage('notes')">Notebook</button>
+  <button class="tab active" id="focusTab" onclick="switchPage('focus')"><span data-i18n="focus">Focus</span></button>
+  <button class="tab" id="notesTab" onclick="switchPage('notes')"><span data-i18n="notebook">Notebook</span></button>
 </div>
 
 <div class="page active" id="focusPage"><div class="grid">
 <section class="card">
   <div class="section-row">
-    <h2>What do I want to do today?</h2>
+    <h2 data-i18n="todayQuestion">What do I want to do today?</h2>
     <span class="small" id="count"></span>
   </div>
   <div class="task-input">
-    <input id="taskInput" placeholder="Add something you want to do today…" onkeydown="if(event.key==='Enter') addTodayTask()">
-    <button class="primary" onclick="addTodayTask()">Add</button>
+    <input id="taskInput" data-i18n-placeholder="addToday" placeholder="Add something you want to do today…" onkeydown="if(event.key==='Enter') addTodayTask()">
+    <button class="primary" onclick="addTodayTask()"><span data-i18n="add">Add</span></button>
   </div>
   <div class="tasks" id="tasks"></div>
   <div class="progress">
-    <div class="section-row"><span class="small">Today's progress</span><span class="small" id="progressText">0 / 0</span></div>
+    <div class="section-row"><span class="small" data-i18n="todaysProgress">Today's progress</span><span class="small" id="progressText">0 / 0</span></div>
     <div class="progress-line"><div class="progress-fill" id="progressFill"></div></div>
   <div class="focus-summary">
-    <span class="focus-summary-label">Focus time today</span>
+    <span class="focus-summary-label" data-i18n="focusTimeToday">Focus time today</span>
     <span class="focus-summary-time" id="homeFocusTotal">0m</span>
   </div>
   </div>
 </section>
 
 <section class="card focus-card">
-  <div class="focus-label">CURRENT FOCUS</div>
-  <div class="current-task" id="currentTask">Choose a task to begin.</div>
+  <div class="focus-label" data-i18n="currentFocus">CURRENT FOCUS</div>
+  <div class="current-task" id="currentTask" data-i18n="chooseTask">Choose a task to begin.</div>
   <div class="modes">
-    <button class="mode active" onclick="setMode(25,this)">Pomodoro · 25m</button>
-    <button class="mode" onclick="setMode(15,this)">Quick · 15m</button>
-    <button class="mode" onclick="setMode(50,this)">Deep · 50m</button>
-    <button class="mode" onclick="setMode(60,this)">Deep · 60m</button>
-    <button class="mode" onclick="setMode(0,this)">Open timer</button>
-    <button class="mode" onclick="showCustom(this)">Custom</button>
+    <button class="mode active" onclick="setMode(25,this)"><span data-i18n="pomodoro25">Pomodoro · 25m</span></button>
+    <button class="mode" onclick="setMode(15,this)"><span data-i18n="quick15">Quick · 15m</span></button>
+    <button class="mode" onclick="setMode(50,this)"><span data-i18n="deep50">Deep · 50m</span></button>
+    <button class="mode" onclick="setMode(60,this)"><span data-i18n="deep60">Deep · 60m</span></button>
+    <button class="mode" onclick="setMode(0,this)"><span data-i18n="openTimer">Open timer</span></button>
+    <button class="mode" onclick="showCustom(this)"><span data-i18n="custom">Custom</span></button>
   </div>
   <div class="custom-row" id="customRow">
-    <input id="customMinutes" type="number" min="1" max="600" placeholder="minutes">
-    <button class="primary" onclick="applyCustom()">Set timer</button>
+    <input id="customMinutes" type="number" min="1" max="600" data-i18n-placeholder="minutes" placeholder="minutes">
+    <button class="primary" onclick="applyCustom()"><span data-i18n="setTimer">Set timer</span></button>
   </div>
   <div class="timer" id="timer">25:00</div>
   <div class="controls">
-    <button class="primary" id="startBtn" onclick="toggleTimer()">Start</button>
-    <button class="ghost" onclick="resetTimer()">Reset</button>
+    <button class="primary" id="startBtn" onclick="toggleTimer()"><span data-i18n="start">Start</span></button>
+    <button class="ghost" onclick="resetTimer()"><span data-i18n="reset">Reset</span></button>
   </div>
   <div class="focus-options">
-    <div class="option-title">After focus</div>
+    <div class="option-title" data-i18n="afterFocus">After focus</div>
     <div class="choice-row">
-      <button class="choice active" id="breakOff" onclick="setBreakChoice(false,this)">No break</button>
-      <button class="choice" onclick="setBreakChoice(true,this)">Break</button>
+      <button class="choice active" id="breakOff" onclick="setBreakChoice(false,this)"><span data-i18n="noBreak">No break</span></button>
+      <button class="choice" onclick="setBreakChoice(true,this)"><span data-i18n="break">Break</span></button>
       <button class="choice" onclick="setBreakChoice(true,this,5)">5m</button>
       <button class="choice" onclick="setBreakChoice(true,this,10)">10m</button>
       <button class="choice" onclick="setBreakChoice(true,this,15)">15m</button>
-      <button class="choice" onclick="setBreakChoice(true,this,'custom')">Custom</button>
+      <button class="choice" onclick="setBreakChoice(true,this,'custom')"><span data-i18n="custom">Custom</span></button>
     </div>
     <div class="custom-row" id="breakCustomRow">
       <input id="breakMinutes" type="number" min="1" max="120" placeholder="break minutes">
-      <button class="ghost" onclick="applyBreakCustom()">Set break</button>
+      <button class="ghost" onclick="applyBreakCustom()"><span data-i18n="setBreak">Set break</span></button>
     </div>
   </div>
 </section>
@@ -360,135 +398,134 @@ body{background:var(--bg)}
     <div class="cal-title" id="calTitle"></div>
     <div class="cal-nav"><button onclick="changeMonth(-1)">‹</button><button onclick="changeMonth(1)">›</button></div>
   </div>
-  <div class="week"><div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div></div>
+  <div class="week"><div data-i18n="sun">Sun</div><div data-i18n="mon">Mon</div><div data-i18n="tue">Tue</div><div data-i18n="wed">Wed</div><div data-i18n="thu">Thu</div><div data-i18n="fri">Fri</div><div data-i18n="sat">Sat</div></div>
   <div class="days" id="days"></div>
-  <div class="calendar-note">Click any date to add tasks for that day.</div>
+  <div class="calendar-note" data-i18n="calendarNote">Click any date to add tasks for that day.</div>
 </section>
 
 <section class="card day-panel">
-  <div class="focus-label">DAY PLANNER</div>
+  <div class="focus-label" data-i18n="dayPlanner">DAY PLANNER</div>
   <div class="selected-date" id="selectedDate"></div>
   <div class="day-focus-summary">
-    <span class="day-focus-label">Focus completed</span>
+    <span class="day-focus-label" data-i18n="focusCompleted">Focus completed</span>
     <span class="day-focus-time" id="selectedFocusTotal">0m</span>
   </div>
   <div class="day-input">
-    <input id="dayTaskInput" placeholder="What needs to happen that day?" onkeydown="if(event.key==='Enter') addDayTask()">
-    <button class="primary" onclick="addDayTask()">Add</button>
+    <input id="dayTaskInput" data-i18n-placeholder="dayTask" placeholder="What needs to happen that day?" onkeydown="if(event.key==='Enter') addDayTask()">
+    <button class="primary" onclick="addDayTask()"><span data-i18n="add">Add</span></button>
   </div>
   <div class="day-list" id="dayList"></div>
 </section>
 </div>
-<section class="card history-card">
-  <div class="history-head">
-    <div><div class="focus-label">FOCUS HISTORY</div><div class="history-title">Your focus archive</div><div class="history-sub">See your patterns, then review, edit, or remove individual sessions.</div></div>
-    <div class="history-filter"><input id="historyDateFilter" type="date" onchange="renderFocusHistory()" title="Filter by date"><button class="ghost" onclick="clearHistoryFilter()">All</button></div>
-  </div>
-
-  <div class="history-stats">
-    <div class="history-range">
-      <button id="rangeToday" onclick="setHistoryRange('today')">Today</button>
-      <button id="rangeWeek" class="active" onclick="setHistoryRange('week')">This week</button>
-      <button id="rangeMonth" onclick="setHistoryRange('month')">This month</button>
-    </div>
-
-    <div class="stats-grid">
-      <div class="stat-card"><div class="stat-label">Total focus</div><div class="stat-value" id="statTotal">0m</div><div class="stat-note" id="statTotalNote">No focus yet</div></div>
-      <div class="stat-card"><div class="stat-label">Daily average</div><div class="stat-value" id="statAverage">0m</div><div class="stat-note">Across this period</div></div>
-      <div class="stat-card"><div class="stat-label">Sessions</div><div class="stat-value" id="statSessions">0</div><div class="stat-note" id="statSessionNote">Completed focus sessions</div></div>
-      <div class="stat-card"><div class="stat-label">Best day</div><div class="stat-value" id="statBestDay">—</div><div class="stat-note" id="statBestDayTime">No focus yet</div></div>
-    </div>
-
-    <div class="history-chart">
-      <div class="chart-head"><div class="chart-title">Focus trend</div><div class="chart-caption" id="chartCaption">This week</div></div>
-      <div class="focus-bars" id="focusTrendBars"></div>
-    </div>
-  </div>
-
-  <div class="history-list" id="focusHistoryList"></div>
-</section></div>
+</div>
 
 <div class="page" id="notesPage">
 <section class="card notebook">
-  <div class="focus-label">NOTEBOOK</div>
+  <div class="focus-label" data-i18n="notebook">NOTEBOOK</div>
   <div class="note-toolbar">
-    <div class="small">A little place to dump thoughts, plans, nonsense, and suddenly brilliant ideas.</div>
-    <button class="ghost" onclick="newNote()">+ New note</button>
+    <div class="small" data-i18n="notebookIntro">A little place to dump thoughts, plans, nonsense, and suddenly brilliant ideas.</div>
+    <button class="ghost" onclick="newNote()"><span data-i18n="newNote">+ New note</span></button>
   </div>
   <div class="note-list" id="noteList"></div>
-  <input class="note-title" id="noteTitle" placeholder="Untitled note">
-  <textarea class="note-area" id="noteArea" placeholder="Write whatever is on your mind…"></textarea>
+  <input class="note-title" id="noteTitle" data-i18n-placeholder="untitledNote" placeholder="Untitled note">
+  <textarea class="note-area" id="noteArea" data-i18n-placeholder="writeNote" placeholder="Write whatever is on your mind…"></textarea>
 </section>
 </div>
 
 <div class="history-modal" id="historyModal">
   <div class="history-modal-card">
-    <div class="history-modal-head"><h2>Edit focus session</h2><button class="icon-btn" onclick="closeHistoryEditor()">×</button></div>
+    <div class="history-modal-head"><h2 data-i18n="editFocusSession">Edit focus session</h2><button class="icon-btn" onclick="closeHistoryEditor()">×</button></div>
     <input type="hidden" id="historyEditId">
-    <div class="history-field"><label for="historyEditDate">Date</label><input id="historyEditDate" type="date"></div>
-    <div class="history-field"><label for="historyEditMinutes">Focus time (minutes)</label><input id="historyEditMinutes" type="number" min="1" max="1440" step="1"></div>
-    <div class="history-field"><label for="historyEditTask">Task</label><input id="historyEditTask" placeholder="What were you focusing on?"></div>
-    <div class="history-field"><label for="historyEditNote">Note</label><input id="historyEditNote" placeholder="Optional note"></div>
-    <div class="history-modal-actions"><button class="ghost" onclick="closeHistoryEditor()">Cancel</button><button class="primary" onclick="saveHistoryEdit()">Save changes</button></div>
+    <div class="history-field"><label for="historyEditDate" data-i18n="date">Date</label><input id="historyEditDate" type="date"></div>
+    <div class="history-field"><label for="historyEditMinutes" data-i18n="focusMinutes">Focus time (minutes)</label><input id="historyEditMinutes" type="number" min="1" max="1440" step="1"></div>
+    <div class="history-field"><label for="historyEditTask" data-i18n="task">Task</label><input id="historyEditTask" data-i18n-placeholder="whatFocused" placeholder="What were you focusing on?"></div>
+    <div class="history-field"><label for="historyEditNote" data-i18n="note">Note</label><input id="historyEditNote" data-i18n-placeholder="optionalNote" placeholder="Optional note"></div>
+    <div class="history-modal-actions"><button class="ghost" onclick="closeHistoryEditor()"><span data-i18n="cancel">Cancel</span></button><button class="primary" onclick="saveHistoryEdit()"><span data-i18n="saveChanges">Save changes</span></button></div>
   </div>
 </div>
 <div class="settings" id="settings">
   <div class="settings-card">
-    <div class="settings-head"><h2>Personalize</h2><button class="icon-btn" onclick="closeSettings()">×</button></div>
+    <div class="settings-head"><h2 data-i18n="personalize">Personalize</h2><button class="icon-btn" onclick="closeSettings()">×</button></div>
+    <div class="setting"><label data-i18n="language">Language</label><select id="languageSelectSettings" class="name-input" onchange="setLanguage(this.value)"><option value="en">English</option><option value="zh">中文</option></select></div>
     <div class="setting">
-      <label for="nameInput">Your name</label>
-      <input class="name-input" id="nameInput" placeholder="What should we call you?">
+      <label for="nameInput" data-i18n="yourName">Your name</label>
+      <input class="name-input" id="nameInput" data-i18n-placeholder="namePlaceholder" placeholder="What should we call you?">
     </div>
     <div class="setting">
-      <label>Make steno yours</label>
-      <div class="small" style="margin-bottom:11px">Pick three colors. They each have a job — so your theme feels intentional instead of becoming a rainbow accident.</div>
+      <label data-i18n="makeStenoYours">Make steno yours</label>
+      <div class="small" style="margin-bottom:11px" data-i18n="colorIntro">Pick three colors. They each have a job — so your theme feels intentional instead of becoming a rainbow accident.</div>
       <div class="color-row">
         <div class="color-control">
           <input id="bgColor" type="color">
-          <span>Background</span>
-          <div class="hint">The whole page</div>
+          <span data-i18n="background">Background</span>
+          <div class="hint" data-i18n="wholePage">The whole page</div>
         </div>
         <div class="color-control">
           <input id="accentColor" type="color">
-          <span>Accent</span>
-          <div class="hint">Buttons & actions</div>
+          <span data-i18n="accent">Accent</span>
+          <div class="hint" data-i18n="buttonsActions">Buttons & actions</div>
         </div>
         <div class="color-control">
           <input id="themeColor" type="color">
-          <span>Atmosphere</span>
-          <div class="hint">Cards & soft surfaces</div>
+          <span data-i18n="atmosphere">Atmosphere</span>
+          <div class="hint" data-i18n="cardsSurfaces">Cards & soft surfaces</div>
         </div>
       </div>
       <div class="theme-presets">
-        <div class="small" style="margin:12px 0 7px">Pick a little world:</div>
+        <div class="small" style="margin:12px 0 7px" data-i18n="pickWorld">Pick a little world:</div>
         <div class="choice-row">
-          <button class="choice" onclick="applyPreset('#f7f3ed','#9b6b4b','#fff1df')">🥐 boulangerie</button>
-          <button class="choice" onclick="applyPreset('#f1f8f6','#5c9d94','#dff0ec')">🐬 aquarium</button>
-          <button class="choice" onclick="applyPreset('#f3f2f7','#6857a6','#e9e4fa')">🪻 lavender</button>
-          <button class="choice" onclick="applyPreset('#202225','#d9dde2','#30343a')">☁️ cloudy</button>
-          <button class="choice" onclick="applyPreset('#fbf0f3','#b85f79','#f5dce4')">🍓 rouge</button>
+          <button class="choice" onclick="applyPreset('#f7f3ed','#9b6b4b','#fff1df')"><span data-i18n="boulangerie">🥐 boulangerie</span></button>
+          <button class="choice" onclick="applyPreset('#f1f8f6','#5c9d94','#dff0ec')"><span data-i18n="aquarium">🐬 aquarium</span></button>
+          <button class="choice" onclick="applyPreset('#f3f2f7','#6857a6','#e9e4fa')"><span data-i18n="lavender">🪻 lavender</span></button>
+          <button class="choice" onclick="applyPreset('#202225','#d9dde2','#30343a')"><span data-i18n="cloudy">☁️ cloudy</span></button>
+          <button class="choice" onclick="applyPreset('#fbf0f3','#b85f79','#f5dce4')"><span data-i18n="rouge">🍓 rouge</span></button>
         </div>
       </div>
     </div>
     <div class="setting">
-      <label>Daily words</label>
+      <label data-i18n="dailyWords">Daily words</label>
       <div class="choice-row">
-        <button class="choice" id="quoteDaily" onclick="setQuoteMode('daily',this)">Daily quote</button>
-        <button class="choice" id="quoteMotto" onclick="setQuoteMode('motto',this)">My motto / goal</button>
+        <button class="choice" id="quoteDaily" onclick="setQuoteMode('daily',this)"><span data-i18n="dailyQuote">Daily quote</span></button>
+        <button class="choice" id="quoteMotto" onclick="setQuoteMode('motto',this)"><span data-i18n="myMotto">My motto / goal</span></button>
       </div>
-      <input class="name-input" id="mottoInput" style="margin-top:9px;display:none" placeholder="Write something you want to see every day…">
-      <div class="hint">A tiny line, not a motivational billboard.</div>
+      <input class="name-input" id="mottoInput" style="margin-top:9px;display:none" data-i18n-placeholder="mottoPlaceholder" placeholder="Write something you want to see every day…">
+      <div class="hint" data-i18n="dailyHint">A tiny line, not a motivational billboard.</div>
     </div>
     <div class="setting">
-      <label>Focus break</label>
-      <div class="small">You choose whether a break happens. If yes, you choose how long. Nothing is forced on you.</div>
+      <label data-i18n="focusBreak">Focus break</label>
+      <div class="small" data-i18n="breakIntro">You choose whether a break happens. If yes, you choose how long. Nothing is forced on you.</div>
     </div>
-    <div class="save-row"><button class="primary" onclick="saveSettings()">Save & remember</button></div>
+    <div class="save-row"><button class="primary" onclick="saveSettings()"><span data-i18n="saveRemember">Save & remember</span></button></div>
   </div>
 </div>
 <div class="toast" id="toast"></div>
 
 <script>
+const I18N={
+ en:{
+  login:"Log in",createAccount:"Create account",username:"Username",password:"Password",confirmPassword:"Confirm password",enterUsername:"Enter your username",passwordHint:"At least 8 characters",typeAgain:"Type it again",
+  insideSteno:"Inside steno",focusAndNotebook:"Focus + Notebook.",previewIntro:"Two small tools in one quiet space: focus on what matters, then keep the thoughts that come with it.",currentFocus:"CURRENT FOCUS",previewTask:"Read and annotate today's article",researchIdeas:"Research ideas",quickThought:"Quick thought",focusReflection:"Focus reflection",note:"Note",twentyFiveMin:"25 min",focus:"Focus",task:"Task",edit:"Edit",delete:"Delete",acrossPeriod:"Across this period",previewCaption:"Plan → focus → write it down → come back tomorrow.",
+  personalize:"Personalize",language:"Language",todayQuestion:"What do I want to do today?",addToday:"Add something you want to do today…",add:"Add",todaysProgress:"Today's progress",focusTimeToday:"Focus time today",chooseTask:"Choose a task to begin.",pomodoro25:"Pomodoro · 25m",quick15:"Quick · 15m",deep50:"Deep · 50m",deep60:"Deep · 60m",openTimer:"Open timer",custom:"Custom",minutes:"minutes",setTimer:"Set timer",start:"Start",pause:"Pause",reset:"Reset",afterFocus:"After focus",noBreak:"No break",break:"Break",setBreak:"Set break",breakMinutes:"break minutes",calendarNote:"Click any date to add tasks for that day.",dayPlanner:"DAY PLANNER",focusCompleted:"Focus completed",dayTask:"What needs to happen that day?",focusHistory:"FOCUS HISTORY",focusArchive:"Your focus archive",historySub:"See your patterns, then review, edit, or remove individual sessions.",all:"All",today:"Today",thisWeek:"This week",thisMonth:"This month",totalFocus:"Total focus",dailyAverage:"Daily average",sessions:"Sessions",bestDay:"Best day",focusTrend:"Focus trend",notebook:"NOTEBOOK",notebookIntro:"A little place to dump thoughts, plans, nonsense, and suddenly brilliant ideas.",newNote:"+ New note",untitledNote:"Untitled note",writeNote:"Write whatever is on your mind…",editFocusSession:"Edit focus session",date:"Date",focusMinutes:"Focus time (minutes)",whatFocused:"What were you focusing on?",optionalNote:"Optional note",cancel:"Cancel",saveChanges:"Save changes",yourName:"Your name",namePlaceholder:"What should we call you?",makeStenoYours:"Make steno yours",colorIntro:"Pick three colors. They each have a job — so your theme feels intentional instead of becoming a rainbow accident.",background:"Background",wholePage:"The whole page",accent:"Accent",buttonsActions:"Buttons & actions",atmosphere:"Atmosphere",cardsSurfaces:"Cards & soft surfaces",pickWorld:"Pick a little world:",dailyWords:"Daily words",dailyQuote:"Daily quote",myMotto:"My motto / goal",mottoPlaceholder:"Write something you want to see every day…",dailyHint:"A tiny line, not a motivational billboard.",focusBreak:"Focus break",breakIntro:"You choose whether a break happens. If yes, you choose how long. Nothing is forced on you.",saveRemember:"Save & remember",sun:"Sun",mon:"Mon",tue:"Tue",wed:"Wed",thu:"Thu",fri:"Fri",sat:"Sat",boulangerie:"boulangerie",aquarium:"aquarium",lavender:"lavender",cloudy:"cloudy",rouge:"rouge",
+  welcomeBack:"Welcome back.",welcomeSub:"Your little focus space, saved under your own account.",makeSpace:"Make your little space.",makeSpaceSub:"Just a username and password. No life story required.",authNote:"Your account, notes, and focus history stay in this browser for now — a simple space to plan, focus, and reflect.",
+  validUsername:"Username: 3–24 letters, numbers, or underscores.",validPassword:"Password: at least 8 characters and include a number.",userExists:"That username already exists on this browser.",passwordMismatch:"Those passwords don't match.",noAccount:"No account with that username here.",wrongPassword:"Username or password isn't right.",logout:"log out",
+  taskEmpty:"Nothing here yet.<br>Add one small thing you want to get done.",done:"done",focusCompleteBreak:"Focus complete. {min}-minute break starting.",focusComplete:"Focus complete. Nicely done.",breakComplete:"Break complete. Back to whatever matters.",breakBanner:"☕ Nice. Focus done. Your break settings are doing their thing.",focusSet:"{min}-minute focus set",noPlans:"No plans for this day yet.",noHistory:"No focus records here yet. Finish a focus session and it will appear here.",sessionInPeriod:"{n} session{s} in this period",noFocusYet:"No focus yet",completedSession:"Completed focus session",completedSessions:"Completed focus sessions",todayChart:"Today",weekChart:"This week",monthChart:"This month",focusRecordUpdated:"Focus record updated.",focusRecordDeleted:"Focus record deleted.",enterDateTime:"Please enter a date and focus time.",deleteConfirm:"Delete this focus record? This cannot be undone.",saved:"Personalization saved — I’ll remember it.",previousFocus:"Previous focus",importedFromEarlier:"Imported from earlier steno data",focusSession:"Focus session",untitled:"Untitled",
+  morning:"Good morning",afternoon:"Good afternoon",evening:"Good evening",yourReminder:"your little reminder",
+ },
+ zh:{
+  login:"登录",createAccount:"创建账号",username:"用户名",password:"密码",confirmPassword:"确认密码",enterUsername:"输入你的用户名",passwordHint:"至少 8 个字符",typeAgain:"再输入一次",
+  insideSteno:"探索 steno",focusAndNotebook:"专注 + 笔记本",previewIntro:"两个安静而实用的小工具放在一起：专注于重要的事，也把专注时冒出的想法留下来。",currentFocus:"正在专注",previewTask:"阅读并标注今天的文章",researchIdeas:"研究想法",quickThought:"随手记",focusReflection:"专注回顾",note:"笔记",twentyFiveMin:"25 分钟",focus:"专注",task:"任务",edit:"编辑",delete:"删除",acrossPeriod:"这段时间",previewCaption:"计划 → 专注 → 记下来 → 明天继续。",
+  personalize:"个性化",language:"语言",todayQuestion:"今天想做什么？",addToday:"添加今天想完成的事情……",add:"添加",todaysProgress:"今日进度",focusTimeToday:"今日专注时间",chooseTask:"选择一个任务开始吧。",pomodoro25:"番茄钟 · 25 分钟",quick15:"快速 · 15 分钟",deep50:"深度 · 50 分钟",deep60:"深度 · 60 分钟",openTimer:"自由计时",custom:"自定义",minutes:"分钟",setTimer:"设置计时",start:"开始",pause:"暂停",reset:"重置",afterFocus:"专注结束后",noBreak:"不休息",break:"休息",setBreak:"设置休息",breakMinutes:"休息分钟数",calendarNote:"点击日期，为那一天添加任务。",dayPlanner:"日程规划",focusCompleted:"已完成专注",dayTask:"那天需要完成什么？",focusHistory:"专注记录",focusArchive:"你的专注档案",historySub:"查看你的专注模式，也可以编辑或删除单次记录。",all:"全部",today:"今天",thisWeek:"本周",thisMonth:"本月",totalFocus:"总专注时间",dailyAverage:"日均专注",sessions:"次数",bestDay:"最佳一天",focusTrend:"专注趋势",notebook:"笔记本",notebookIntro:"一个可以随手放下想法、计划、废话，以及突然冒出来的好点子的地方。",newNote:"+ 新建笔记",untitledNote:"未命名笔记",writeNote:"写下此刻脑海里的任何东西……",editFocusSession:"编辑专注记录",date:"日期",focusMinutes:"专注时间（分钟）",whatFocused:"你当时在专注什么？",optionalNote:"备注（可选）",cancel:"取消",saveChanges:"保存修改",yourName:"你的名字",namePlaceholder:"我们应该怎么称呼你？",makeStenoYours:"让 steno 更像你",colorIntro:"选择三种颜色。每一种都有自己的作用，让你的主题保持有意而为，而不是变成彩虹。",background:"背景",wholePage:"整个页面",accent:"强调色",buttonsActions:"按钮和操作",atmosphere:"氛围",cardsSurfaces:"卡片和柔和区域",pickWorld:"选择一个小世界：",dailyWords:"每日一句",dailyQuote:"每日语录",myMotto:"我的座右铭 / 目标",mottoPlaceholder:"写下一句你想每天看到的话……",dailyHint:"短短一句就好，不要变成励志海报。",focusBreak:"专注休息",breakIntro:"你可以自己决定要不要休息；如果休息，也由你决定多久。一切都由你掌控。",saveRemember:"保存并记住",sun:"日",mon:"一",tue:"二",wed:"三",thu:"四",fri:"五",sat:"六",boulangerie:"面包房",aquarium:"水族馆",lavender:"薰衣草",cloudy:"阴天",rouge:"莓红",
+  welcomeBack:"欢迎回来。",welcomeSub:"属于你自己的小小专注空间。",makeSpace:"打造你的小空间。",makeSpaceSub:"只需要用户名和密码，不需要讲述人生故事。",authNote:"目前，你的账号、笔记和专注记录都保存在这个浏览器里——一个用来计划、专注和回顾的小空间。",
+  validUsername:"用户名需为 3–24 位字母、数字或下划线。",validPassword:"密码至少 8 个字符，并包含数字。",userExists:"这个用户名已经在此浏览器中存在。",passwordMismatch:"两次输入的密码不一致。",noAccount:"此浏览器中没有找到这个用户名。",wrongPassword:"用户名或密码不正确。",logout:"退出",
+  taskEmpty:"这里还没有任务。<br>先加一件你想完成的小事吧。",done:"已完成",focusCompleteBreak:"专注完成。接下来休息 {min} 分钟。",focusComplete:"专注完成，做得不错。",breakComplete:"休息结束，回到重要的事情上吧。",breakBanner:"☕ 很好，专注完成。接下来交给你的休息设置。",focusSet:"已设置 {min} 分钟专注",noPlans:"这一天还没有计划。",noHistory:"这里还没有专注记录。完成一次专注后，它会出现在这里。",sessionInPeriod:"这段时间内有 {n} 次专注",noFocusYet:"还没有专注记录",completedSession:"已完成专注",completedSessions:"已完成专注",todayChart:"今天",weekChart:"本周",monthChart:"本月",focusRecordUpdated:"专注记录已更新。",focusRecordDeleted:"专注记录已删除。",enterDateTime:"请输入日期和专注时间。",deleteConfirm:"确定删除这条专注记录吗？此操作无法撤销。",saved:"个性化设置已保存。",previousFocus:"之前的专注",importedFromEarlier:"从之前的 steno 数据导入",focusSession:"专注记录",untitled:"未命名",
+  morning:"早上好",afternoon:"下午好",evening:"晚上好",yourReminder:"你的每日提醒",
+ }
+};
+let currentLang=localStorage.getItem("steno_lang")||"en";
+function t(key,vars={}){let v=(I18N[currentLang]&&I18N[currentLang][key])||I18N.en[key]||key;return Object.entries(vars).reduce((x,[k,val])=>x.replaceAll("{"+k+"}",String(val)),v)}
+function applyLanguage(lang){currentLang=lang==="zh"?"zh":"en";localStorage.setItem("steno_lang",currentLang);if(typeof state!=="undefined"&&state)state.language=currentLang;document.documentElement.lang=currentLang==="zh"?"zh-CN":"en";document.querySelectorAll("[data-i18n]").forEach(el=>{el.innerHTML=t(el.dataset.i18n)});document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>el.placeholder=t(el.dataset.i18nPlaceholder));document.querySelectorAll("[data-i18n-title]").forEach(el=>el.title=t(el.dataset.i18nTitle));const a=document.getElementById("languageSelectAuth"),b=document.getElementById("languageSelectApp"),c=document.getElementById("languageSelectSettings");if(a)a.value=currentLang;if(b)b.value=currentLang;if(c)c.value=currentLang;document.title=currentLang==="zh"?"steno — 专注与笔记":"steno — focus & notes";if(typeof renderGreeting==="function")renderGreeting();if(typeof renderQuote==="function")renderQuote();if(typeof renderTasks==="function")renderTasks();if(typeof renderCalendar==="function")renderCalendar();if(typeof renderFocusHistory==="function")renderFocusHistory();if(typeof renderNotes==="function")renderNotes();if(typeof updateDynamicLabels==="function")updateDynamicLabels();}
+function setLanguage(lang){applyLanguage(lang);if(typeof save==="function"&&currentUser){save();}}
+
 const LEGACY_STORAGE="today_focus_v2";
 const USERS_STORAGE="steno_users_v1";
 const SESSION_STORAGE="steno_session_v1";
@@ -508,18 +545,19 @@ const quotes=[
 let currentUser=localStorage.getItem(SESSION_STORAGE)||"";
 let users=JSON.parse(localStorage.getItem(USERS_STORAGE)||"{}");
 let state=currentUser && users[currentUser] ? users[currentUser].data : {
- name:"",bg:"#f7f3ed",accent:"#8b5e3c",theme:"#fff1df",tasks:{},notes:{},focusSeconds:0,focusByDate:{},focusSessions:[],breakEnabled:false,breakMinutes:5,quoteMode:"daily",motto:""
+ name:"",bg:"#f7f3ed",accent:"#8b5e3c",theme:"#fff1df",tasks:{},notes:{},focusSeconds:0,focusByDate:{},focusSessions:[],breakEnabled:false,breakMinutes:5,quoteMode:"daily",motto:"",language:currentLang
 };
 // Focus is stored by calendar date so the planner can show historical totals.
+state.language=state.language||currentLang;currentLang=state.language;localStorage.setItem("steno_lang",currentLang);
 state.focusByDate=state.focusByDate||{};
 state.focusSessions=Array.isArray(state.focusSessions)?state.focusSessions:[];
 if(typeof state.focusSeconds!=="number")state.focusSeconds=0;
 // Convert existing per-day totals into editable history entries when this version is first opened.
 if(!state.focusSessions.length && Object.keys(state.focusByDate).length){
- Object.entries(state.focusByDate).forEach(([date,seconds])=>{if(Number(seconds)>0)state.focusSessions.push({id:"legacy-"+date,durationSeconds:Number(seconds),date,taskName:"Previous focus",note:"Imported from earlier steno data",startedAt:date+"T12:00:00",endedAt:date+"T12:00:00"})});
+ Object.entries(state.focusByDate).forEach(([date,seconds])=>{if(Number(seconds)>0)state.focusSessions.push({id:"legacy-"+date,durationSeconds:Number(seconds),date,taskName:t("previousFocus"),note:t("importedFromEarlier"),startedAt:date+"T12:00:00",endedAt:date+"T12:00:00"})});
 }
 if(!state.focusSessions.length && state.focusSeconds>0){
- const d=todayKey(); state.focusSessions.push({id:"legacy-today",durationSeconds:Number(state.focusSeconds),date:d,taskName:"Previous focus",note:"Imported from earlier steno data",startedAt:new Date().toISOString(),endedAt:new Date().toISOString()});
+ const d=todayKey(); state.focusSessions.push({id:"legacy-today",durationSeconds:Number(state.focusSeconds),date:d,taskName:t("previousFocus"),note:t("importedFromEarlier"),startedAt:new Date().toISOString(),endedAt:new Date().toISOString()});
 }
 rebuildFocusByDate();
 // Migrate the old prototype's single counter into today's bucket once.
@@ -543,9 +581,9 @@ function showAuth(mode){
  document.getElementById("loginTab").classList.toggle("active",mode==="login");
  document.getElementById("registerTab").classList.toggle("active",mode==="register");
  document.getElementById("authConfirmWrap").style.display=mode==="register"?"block":"none";
- document.getElementById("authTitle").textContent=mode==="register"?"Make your little space.":"Welcome back.";
- document.getElementById("authSub").textContent=mode==="register"?"Just a username and password. No life story required.":"Your little focus space, saved under your own account.";
- document.getElementById("authSubmit").textContent=mode==="register"?"Create account":"Log in";
+ document.getElementById("authTitle").textContent=mode==="register"?t("makeSpace"):t("welcomeBack");
+ document.getElementById("authSub").textContent=mode==="register"?t("makeSpaceSub"):t("welcomeSub");
+ document.getElementById("authSubmit").textContent=mode==="register"?t("createAccount"):t("login");
  document.getElementById("authError").textContent="";
 }
 async function hashPassword(password){
@@ -561,21 +599,21 @@ async function submitAuth(){
  const c=document.getElementById("authConfirm").value;
  const err=document.getElementById("authError");
  err.textContent="";
- if(!validUsername(u)){err.textContent="Username: 3–24 letters, numbers, or underscores.";return}
- if(!validPassword(p)){err.textContent="Password: at least 8 characters and include a number.";return}
+ if(!validUsername(u)){err.textContent=t("validUsername");return}
+ if(!validPassword(p)){err.textContent=t("validPassword");return}
  if(authMode==="register"){
-   if(users[u]){err.textContent="That username already exists on this browser.";return}
-   if(p!==c){err.textContent="Those passwords don't match.";return}
+   if(users[u]){err.textContent=t("userExists");return}
+   if(p!==c){err.textContent=t("passwordMismatch");return}
    users[u]={passwordHash:await hashPassword(p),data:{
-     name:u,bg:"#f7f3ed",accent:"#8b5e3c",theme:"#fff1df",tasks:{},notes:{},focusSeconds:0,focusByDate:{},focusSessions:[],breakEnabled:false,breakMinutes:5,quoteMode:"daily",motto:""
+     name:u,bg:"#f7f3ed",accent:"#8b5e3c",theme:"#fff1df",tasks:{},notes:{},focusSeconds:0,focusByDate:{},focusSessions:[],breakEnabled:false,breakMinutes:5,quoteMode:"daily",motto:"",language:currentLang
    }};
    if(Object.keys(users).length===1 && window.__legacyStenoData){
      users[u].data={...users[u].data,...window.__legacyStenoData,name:u};
    }
    localStorage.setItem(USERS_STORAGE,JSON.stringify(users));
  }else{
-   if(!users[u]){err.textContent="No account with that username here.";return}
-   if((await hashPassword(p))!==users[u].passwordHash){err.textContent="Username or password isn't right.";return}
+   if(!users[u]){err.textContent=t("noAccount");return}
+   if((await hashPassword(p))!==users[u].passwordHash){err.textContent=t("wrongPassword");return}
  }
  currentUser=u;
  localStorage.setItem(SESSION_STORAGE,u);
@@ -585,12 +623,15 @@ async function submitAuth(){
 }
 function afterLogin(){
  if(currentUser && users[currentUser]){
- document.getElementById("authScreen").style.display="none";
- afterLogin();
-}else{
- document.getElementById("authScreen").style.display="flex";
-}
- const chip=document.getElementById("accountChip"); if(chip)chip.innerHTML=`${escapeHtml(currentUser)} <button class="logout-btn" onclick="logout()">log out</button>`;
+   document.getElementById("authScreen").style.display="none";
+   state=users[currentUser].data;
+   currentLang=state.language||localStorage.getItem("steno_lang")||"en";
+   applyLanguage(currentLang);
+ }else{
+   document.getElementById("authScreen").style.display="flex";
+   applyLanguage(currentLang);
+ }
+ const chip=document.getElementById("accountChip"); if(chip)chip.innerHTML=`${escapeHtml(currentUser)} <button class="logout-btn" onclick="logout()">${t("logout")}</button>`;
 }
 function logout(){
  save(); currentUser="";localStorage.removeItem(SESSION_STORAGE);
@@ -618,6 +659,12 @@ function addFocusSeconds(date,seconds){state.focusByDate[date]=(focusForDate(dat
 function beginFocusSession(){const now=new Date();const t=currentId?taskList(todayKey()).find(x=>x.id===currentId):null;activeSession={id:"session-"+Date.now(),date:todayKey(),durationSeconds:0,taskId:t?.id||null,taskName:t?.name||"Focus session",note:"",startedAt:now.toISOString(),endedAt:null}}
 function finishFocusSession(){if(!activeSession||activeSession.durationSeconds<=0){activeSession=null;return}activeSession.endedAt=new Date().toISOString();state.focusSessions.unshift(activeSession);activeSession=null;save();renderFocusHistory();renderTasks();renderCalendar();if(selectedDate===todayKey())renderDayPanel()}
 function formatClock(sec){const h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=sec%60;return h?`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`:`${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`}
+function updateDynamicLabels(){
+ const start=document.getElementById("startBtn");if(start&&!running)start.textContent=t("start");
+ const breakBanner=document.getElementById("breakBanner");if(breakBanner)breakBanner.textContent=t("breakBanner");
+ const chip=document.getElementById("accountChip");if(chip&&currentUser)chip.innerHTML=`${escapeHtml(currentUser)} <button class="logout-btn" onclick="logout()">${t("logout")}</button>`;
+ const title=document.getElementById("authTitle");if(title)showAuth(authMode);
+}
 function applyTheme(){
  document.body.classList.toggle("dark-mode",(state.bg||"").toLowerCase()==="#202225");
  document.documentElement.style.setProperty("--bg",state.bg||"#f7f3ed");
@@ -634,13 +681,13 @@ function applyTheme(){
 function renderGreeting(){
  const h=new Date().getHours(), base=h<12?"Good morning":h<18?"Good afternoon":"Good evening";
  document.getElementById("greeting").textContent=state.name?`${base}, ${state.name}.`:`${base}.`;
- document.getElementById("date").textContent=new Date().toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"});
+ document.getElementById("date").textContent=new Date().toLocaleDateString(currentLang==="zh"?"zh-CN":"en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"});
 }
 function renderQuote(){
  const mode=state.quoteMode||"daily";
  if(mode==="motto" && state.motto){
    document.getElementById("quoteText").textContent=state.motto;
-   document.getElementById("quoteAuthor").textContent="your little reminder";
+   document.getElementById("quoteAuthor").textContent=t("yourReminder");
    return;
  }
  const start=new Date(new Date().getFullYear(),0,0), now=new Date(), day=Math.floor((now-start)/86400000);
@@ -650,17 +697,17 @@ function renderQuote(){
 }
 function renderTasks(){
  const list=taskList(todayKey()),box=document.getElementById("tasks");
- if(!list.length)box.innerHTML='<div class="empty">Nothing here yet.<br>Add one small thing you want to get done.</div>';
- else box.innerHTML=list.map(t=>`
- <div class="task ${t.done?"done":""}">
-  <button class="check ${t.done?"done":""}" onclick="toggleToday(${t.id})"></button>
-  <div class="task-name">${escapeHtml(t.name)}</div>
-  <span class="small">${formatMinutes(t.seconds)}</span>
-  <button class="play" onclick="chooseTask(${t.id})">Focus</button>
-  <button class="delete" onclick="deleteToday(${t.id})">×</button>
+ if(!list.length)box.innerHTML='<div class="empty">'+t("taskEmpty")+'</div>';
+ else box.innerHTML=list.map(task=>`
+ <div class="task ${task.done?"done":""}">
+  <button class="check ${task.done?"done":""}" onclick="toggleToday(${task.id})"></button>
+  <div class="task-name">${escapeHtml(task.name)}</div>
+  <span class="small">${formatMinutes(task.seconds)}</span>
+  <button class="play" onclick="chooseTask(${task.id})">${t("focus")}</button>
+  <button class="delete" onclick="deleteToday(${task.id})">×</button>
  </div>`).join("");
  const done=list.filter(x=>x.done).length,total=list.length;
- document.getElementById("count").textContent=total?`${done} done`:"";
+ document.getElementById("count").textContent=total?`${done} ${t("done")}`:"";
  document.getElementById("progressText").textContent=`${done} / ${total}`;
  document.getElementById("progressFill").style.width=(total?done/total*100:0)+"%";
  document.getElementById("homeFocusTotal").textContent=formatMinutes(focusForDate(todayKey()))||"0m";
@@ -671,10 +718,10 @@ function addTodayTask(){
  input.value="";save();renderTasks();renderCalendar();
 }
 function toggleToday(id){const t=taskList(todayKey()).find(x=>x.id===id);if(t)t.done=!t.done;save();renderTasks();renderCalendar()}
-function deleteToday(id){state.tasks[todayKey()]=taskList(todayKey()).filter(x=>x.id!==id);if(currentId===id){currentId=null;document.getElementById("currentTask").textContent="Choose a task to begin."}save();renderTasks();renderCalendar()}
+function deleteToday(id){state.tasks[todayKey()]=taskList(todayKey()).filter(x=>x.id!==id);if(currentId===id){currentId=null;document.getElementById("currentTask").textContent=t("chooseTask")}save();renderTasks();renderCalendar()}
 function chooseTask(id){
  currentId=id;const t=taskList(todayKey()).find(x=>x.id===id);
- document.getElementById("currentTask").textContent=t?t.name:"Choose a task to begin.";
+ document.getElementById("currentTask").textContent=t?t.name:t("chooseTask");
 }
 function setMode(min,btn){
  if(running)return;
@@ -690,7 +737,7 @@ function showCustom(btn){
 function applyCustom(){
  const min=Math.max(1,Math.min(600,Number(document.getElementById("customMinutes").value)||0));
  if(!min)return;
- modeMinutes=min;remaining=min*60;breakMode=false;updateTimer();toast(`${min}-minute focus set`);
+ modeMinutes=min;remaining=min*60;breakMode=false;updateTimer();toast(t("focusSet",{min}));
 }
 function chooseCurrent(){
  if(currentId)return;
@@ -700,7 +747,7 @@ function toggleTimer(){
  chooseCurrent();
  if(running){pauseTimer();return}
  if(!activeSession)beginFocusSession();
- running=true;document.getElementById("startBtn").textContent="Pause";clearInterval(interval);
+ running=true;document.getElementById("startBtn").textContent=t("pause");clearInterval(interval);
  interval=setInterval(tick,1000);
 }
 function tick(){
@@ -711,20 +758,20 @@ function tick(){
  if(modeMinutes>0){remaining--;if(remaining<=0){remaining=0;finishFocus();return}}
  save();updateTimer();renderTasks();if(selectedDate===todayKey())renderDayPanel();
 }
-function pauseTimer(){running=false;clearInterval(interval);interval=null;document.getElementById("startBtn").textContent="Start";finishFocusSession()}
+function pauseTimer(){running=false;clearInterval(interval);interval=null;document.getElementById("startBtn").textContent=t("start");finishFocusSession()}
 function resetTimer(){if(running)pauseTimer();else activeSession=null;breakMode=false;document.getElementById("breakBanner").classList.remove("show");remaining=modeMinutes*60;updateTimer()}
 function finishFocus(){
  pauseTimer();playBell();
  if(state.breakEnabled){
    breakMode=true;
-   document.getElementById("breakBanner").classList.add("show");
-   document.getElementById("currentTask").textContent="☕ Break";
+   document.getElementById("breakBanner").classList.add("show");document.getElementById("breakBanner").textContent=t("breakBanner");
+   document.getElementById("currentTask").textContent="☕ "+t("break");
    modeMinutes=state.breakMinutes||5;remaining=modeMinutes*60;
-   updateTimer();toast(`Focus complete. ${modeMinutes}-minute break starting.`);
-   setTimeout(()=>{if(breakMode){running=true;document.getElementById("startBtn").textContent="Pause";interval=setInterval(breakTick,1000)}},350);
+   updateTimer();toast(t("focusCompleteBreak",{min:modeMinutes}));
+   setTimeout(()=>{if(breakMode){running=true;document.getElementById("startBtn").textContent=t("pause");interval=setInterval(breakTick,1000)}},350);
  }else{
-   toast("Focus complete. Nicely done.");
-   document.getElementById("startBtn").textContent="Start";
+   toast(t("focusComplete"));
+   document.getElementById("startBtn").textContent=t("start");
    modeMinutes=25;remaining=1500;updateTimer();
  }
  save();
@@ -732,10 +779,10 @@ function finishFocus(){
 function breakTick(){
  remaining--;updateTimer();
  if(remaining<=0){
-  remaining=0;pauseTimer();playBell();toast("Break complete. Back to whatever matters.");
+  remaining=0;pauseTimer();playBell();toast(t("breakComplete"));
   document.getElementById("breakBanner").classList.remove("show");breakMode=false;
-  document.getElementById("currentTask").textContent=currentId?(taskList(todayKey()).find(x=>x.id===currentId)?.name||"Choose a task to begin."):"Choose a task to begin.";
-  modeMinutes=25;remaining=1500;document.getElementById("startBtn").textContent="Start";updateTimer();
+  document.getElementById("currentTask").textContent=currentId?(taskList(todayKey()).find(x=>x.id===currentId)?.name||t("chooseTask")):t("chooseTask");
+  modeMinutes=25;remaining=1500;document.getElementById("startBtn").textContent=t("start");updateTimer();
  }
 }
 function playBell(){
@@ -747,7 +794,7 @@ function playBell(){
 function updateTimer(){document.getElementById("timer").textContent=modeMinutes===0?formatClock(activeSession?.durationSeconds||0):formatClock(remaining)}
 function renderCalendar(){
  const y=viewDate.getFullYear(),m=viewDate.getMonth();
- document.getElementById("calTitle").textContent=new Date(y,m,1).toLocaleDateString(undefined,{month:"long",year:"numeric"});
+ document.getElementById("calTitle").textContent=new Date(y,m,1).toLocaleDateString(currentLang==="zh"?"zh-CN":"en-US",{month:"long",year:"numeric"});
  const first=new Date(y,m,1),start=new Date(y,m,1-first.getDay()),days=document.getElementById("days");days.innerHTML="";
  for(let i=0;i<42;i++){
   const d=new Date(start);d.setDate(start.getDate()+i);const k=keyDate(d), list=state.tasks[k]||[];
@@ -761,10 +808,10 @@ function changeMonth(delta){viewDate.setMonth(viewDate.getMonth()+delta);renderC
 function selectDate(k){selectedDate=k;const d=new Date(k+"T12:00:00");viewDate=new Date(d.getFullYear(),d.getMonth(),1);renderCalendar()}
 function renderDayPanel(){
  const d=new Date(selectedDate+"T12:00:00");
- document.getElementById("selectedDate").textContent=d.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"});
+ document.getElementById("selectedDate").textContent=d.toLocaleDateString(currentLang==="zh"?"zh-CN":"en-US",{weekday:"long",month:"long",day:"numeric"});
  document.getElementById("selectedFocusTotal").textContent=formatMinutes(focusForDate(selectedDate))||"0m";
  const list=taskList(selectedDate),box=document.getElementById("dayList");
- if(!list.length){box.innerHTML='<div class="empty">No plans for this day yet.</div>';return}
+ if(!list.length){box.innerHTML=`<div class="empty">${t("noPlans")}</div>`;return}
  box.innerHTML=list.map(t=>`<div class="mini-task"><button class="check ${t.done?"done":""}" onclick="toggleDay(${t.id})"></button><span class="${t.done?"":" "}">${escapeHtml(t.name)}</span><button class="delete" onclick="deleteDay(${t.id})">×</button></div>`).join("");
 }
 function addDayTask(){
@@ -811,11 +858,11 @@ function renderHistoryStats(){
  document.getElementById("statTotal").textContent=shortStatDuration(total);
  document.getElementById("statAverage").textContent=shortStatDuration(average);
  document.getElementById("statSessions").textContent=String(sessions.length);
- document.getElementById("statTotalNote").textContent=total?`${sessions.length} session${sessions.length===1?"":"s"} in this period`:"No focus yet";
- document.getElementById("statSessionNote").textContent=sessions.length===1?"Completed focus session":"Completed focus sessions";
- document.getElementById("statBestDay").textContent=bestDate?new Date(bestDate+"T12:00:00").toLocaleDateString(undefined,{weekday:"short"}):"—";
- document.getElementById("statBestDayTime").textContent=bestDate?shortStatDuration(bestSeconds):"No focus yet";
- document.getElementById("chartCaption").textContent=historyRange==="today"?"Today":historyRange==="week"?"This week":"This month";
+ document.getElementById("statTotalNote").textContent=total?t("sessionInPeriod",{n:sessions.length,s:sessions.length===1?"":"s"}):t("noFocusYet");
+ document.getElementById("statSessionNote").textContent=sessions.length===1?t("completedSession"):t("completedSessions");
+ document.getElementById("statBestDay").textContent=bestDate?new Date(bestDate+"T12:00:00").toLocaleDateString(currentLang==="zh"?"zh-CN":"en-US",{weekday:"short"}):"—";
+ document.getElementById("statBestDayTime").textContent=bestDate?shortStatDuration(bestSeconds):t("noFocusYet");
+ document.getElementById("chartCaption").textContent=historyRange==="today"?t("todayChart"):historyRange==="week"?t("weekChart"):t("monthChart");
  const box=document.getElementById("focusTrendBars");if(!box)return;
  const max=Math.max(...Object.values(totals),1);
  let chartDates=dates;
@@ -825,9 +872,9 @@ function renderHistoryStats(){
  box.innerHTML=chartDates.map(d=>{
   const secs=totals[d]||0,pct=secs?Math.max(4,Math.round(secs/max*100)):2;
   const dt=new Date(d+"T12:00:00");
-  const label=historyRange==="month"?String(dt.getDate()):dt.toLocaleDateString(undefined,{weekday:"short"});
+  const label=historyRange==="month"?String(dt.getDate()):dt.toLocaleDateString(currentLang==="zh"?"zh-CN":"en-US",{weekday:"short"});
   const value=secs?shortStatDuration(secs):"";
-  const title=dt.toLocaleDateString(undefined,{month:"short",day:"numeric"})+" · "+shortStatDuration(secs);
+  const title=dt.toLocaleDateString(currentLang==="zh"?"zh-CN":"en-US",{month:"short",day:"numeric"})+" · "+shortStatDuration(secs);
   return `<div class="focus-bar-col" title="${escapeHtml(title)}"><div class="focus-bar-value">${value}</div><div class="focus-bar-wrap"><div class="focus-bar" style="height:${pct}%"></div></div><div class="focus-bar-label">${label}</div></div>`;
  }).join("");
 }
@@ -837,10 +884,10 @@ function renderFocusHistory(){
  const box=document.getElementById("focusHistoryList");if(!box)return;
  const filter=document.getElementById("historyDateFilter")?.value||"";
  const sessions=(state.focusSessions||[]).filter(s=>!filter||s.date===filter).slice().sort((a,b)=>{const da=new Date(b.endedAt||b.startedAt||b.date),db=new Date(a.endedAt||a.startedAt||a.date);return da-db});
- if(!sessions.length){box.innerHTML='<div class="history-empty">No focus records here yet. Finish a focus session and it will appear here.</div>';return}
- box.innerHTML=sessions.map(s=>{const task=escapeHtml(s.taskName||"Focus session"),note=s.note?`<div class="history-note">${escapeHtml(s.note)}</div>`:"";return `<div class="history-item"><div class="history-main"><div class="history-date">${formatHistoryDate(s.date)}</div><div class="history-task">${task}</div>${note}</div><div class="history-duration">${formatMinutes(Number(s.durationSeconds)||0)}</div><div class="history-actions"><button onclick="openHistoryEditor('${String(s.id).replace(/'/g,"\'")}')">Edit</button><button onclick="deleteFocusSession('${String(s.id).replace(/'/g,"\'")}')">Delete</button></div></div>`}).join("");
+ if(!sessions.length){box.innerHTML=`<div class="history-empty">${t("noHistory")}</div>`;return}
+ box.innerHTML=sessions.map(s=>{const task=escapeHtml(s.taskName||t("focusSession")),note=s.note?`<div class="history-note">${escapeHtml(s.note)}</div>`:"";return `<div class="history-item"><div class="history-main"><div class="history-date">${formatHistoryDate(s.date)}</div><div class="history-task">${task}</div>${note}</div><div class="history-duration">${formatMinutes(Number(s.durationSeconds)||0)}</div><div class="history-actions"><button onclick="openHistoryEditor('${String(s.id).replace(/'/g,"\'")}')">${t("edit")}</button><button onclick="deleteFocusSession('${String(s.id).replace(/'/g,"\'")}')">${t("delete")}</button></div></div>`}).join("");
 }
-function formatHistoryDate(date){return new Date(date+"T12:00:00").toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric",year:"numeric"})}
+function formatHistoryDate(date){return new Date(date+"T12:00:00").toLocaleDateString(currentLang==="zh"?"zh-CN":"en-US",{weekday:"short",month:"short",day:"numeric",year:"numeric"})}
 function clearHistoryFilter(){document.getElementById("historyDateFilter").value="";renderFocusHistory()}
 function openHistoryEditor(id){
  const s=(state.focusSessions||[]).find(x=>String(x.id)===String(id));if(!s)return;
@@ -850,16 +897,17 @@ function closeHistoryEditor(){document.getElementById("historyModal").classList.
 function saveHistoryEdit(){
  const id=document.getElementById("historyEditId").value,s=(state.focusSessions||[]).find(x=>String(x.id)===String(id));if(!s)return;
  const date=document.getElementById("historyEditDate").value,minutes=Math.max(1,Math.min(1440,Number(document.getElementById("historyEditMinutes").value)||0)),task=document.getElementById("historyEditTask").value.trim()||"Focus session",note=document.getElementById("historyEditNote").value.trim();
- if(!date||!minutes){toast("Please enter a date and focus time.");return}
- s.date=date;s.durationSeconds=Math.round(minutes*60);s.taskName=task;s.note=note;rebuildFocusByDate();save();closeHistoryEditor();renderFocusHistory();renderTasks();renderCalendar();renderDayPanel();toast("Focus record updated.");
+ if(!date||!minutes){toast(t("enterDateTime"));return}
+ s.date=date;s.durationSeconds=Math.round(minutes*60);s.taskName=task;s.note=note;rebuildFocusByDate();save();closeHistoryEditor();renderFocusHistory();renderTasks();renderCalendar();renderDayPanel();toast(t("focusRecordUpdated"));
 }
 function deleteFocusSession(id){
  const s=(state.focusSessions||[]).find(x=>String(x.id)===String(id));if(!s)return;
- if(!confirm("Delete this focus record? This cannot be undone."))return;
- state.focusSessions=state.focusSessions.filter(x=>String(x.id)!==String(id));rebuildFocusByDate();save();renderFocusHistory();renderTasks();renderCalendar();renderDayPanel();toast("Focus record deleted.");
+ if(!confirm(t("deleteConfirm")))return;
+ state.focusSessions=state.focusSessions.filter(x=>String(x.id)!==String(id));rebuildFocusByDate();save();renderFocusHistory();renderTasks();renderCalendar();renderDayPanel();toast(t("focusRecordDeleted"));
 }
 
 function openSettings(){
+ document.getElementById("languageSelectSettings").value=currentLang;
  document.getElementById("nameInput").value=state.name||"";
  document.getElementById("bgColor").value=state.bg||"#f7f3ed";
  document.getElementById("accentColor").value=state.accent||"#8b5e3c";
@@ -890,9 +938,9 @@ function setQuoteMode(mode,btn){
 }
 
 function saveSettings(){
- state.name=document.getElementById("nameInput").value.trim();
+ state.language=currentLang;state.name=document.getElementById("nameInput").value.trim();
  state.bg=document.getElementById("bgColor").value;state.accent=document.getElementById("accentColor").value;state.theme=document.getElementById("themeColor").value;state.motto=document.getElementById("mottoInput").value.trim();
- save();applyTheme();renderGreeting();renderQuote();closeSettings();toast("Personalization saved — I’ll remember it.");
+ save();applyTheme();renderGreeting();renderQuote();closeSettings();toast(t("saved"));
 }
 function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200)}
 
@@ -912,7 +960,7 @@ function newNote(){
 function renderNotes(){
  const notes=noteList(), ids=Object.keys(notes).sort((a,b)=>notes[b].updated-notes[a].updated);
  if(!currentNoteId || !notes[currentNoteId]){if(ids.length)currentNoteId=ids[0];else{newNote();return}}
- document.getElementById("noteList").innerHTML=ids.map(id=>`<button class="note-chip ${String(id)===String(currentNoteId)?"active":""}" onclick="openNote('${id}')">${escapeHtml(notes[id].title||"Untitled")}</button>`).join("");
+ document.getElementById("noteList").innerHTML=ids.map(id=>`<button class="note-chip ${String(id)===String(currentNoteId)?"active":""}" onclick="openNote('${id}')">${escapeHtml(notes[id].title||t("untitled"))}</button>`).join("");
  const n=notes[currentNoteId];
  document.getElementById("noteTitle").value=n.title||"";
  document.getElementById("noteArea").value=n.body||"";
@@ -936,7 +984,7 @@ function applyBreakCustom(){
  state.breakEnabled=true;state.breakMinutes=min;save();toast(`Break: ${min} minutes`);
 }
 
-applyTheme();renderGreeting();renderQuote();renderTasks();renderCalendar();renderFocusHistory();updateTimer();renderNotes();
+applyLanguage(currentLang);applyTheme();renderGreeting();renderQuote();renderTasks();renderCalendar();renderFocusHistory();updateTimer();renderNotes();if(currentUser&&users[currentUser])afterLogin();else showAuth("login");
 </script>
 </body>
 </html>
